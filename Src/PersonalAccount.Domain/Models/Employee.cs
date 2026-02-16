@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using PersonalAccount.Domain.Core;
+using PersonalAccount.Domain.Core.Attributes;
 using PersonalAccount.Domain.Core.Interfaces;
 
 namespace PersonalAccount.Domain.Models;
@@ -8,7 +8,7 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель - сотрудник.
 /// </summary>
-public class Employee : IId<long>
+public class Employee : IId<long>, IName
 {
     /// <summary>
     /// Уникальный код сотрудника.

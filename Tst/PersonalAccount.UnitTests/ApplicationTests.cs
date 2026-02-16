@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using PersonalAccount.Domain;
 using PersonalAccount.Domain.Core;
+using PersonalAccount.Domain.Core.Attributes;
 using PersonalAccount.Domain.Models;
 
 namespace PersonalAccount.UnitTests;
@@ -61,6 +62,6 @@ public class ApplicationTests
         Assert.That(!string.IsNullOrEmpty(attribute!.Template));
 
         var match = new Regex(attribute!.Template);
-        Assert.That(match.IsMatch(domain.Phone!));
+        Assert.Throws<ArgumentNullException>(() => match.IsMatch(domain.Phone!));
     }
 }

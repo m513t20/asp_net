@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using PersonalAccount.Domain.Core;
+using PersonalAccount.Domain.Core.Attributes;
 using PersonalAccount.Domain.Core.Interfaces;
 
 namespace PersonalAccount.Domain.Models;
@@ -35,5 +36,6 @@ public class Organisation : IId<Guid>, IName
     // TODO: Параметр для валидации адреса
     [Required]
     [StringLength(255)]
+    [AdressTemplate]
     public string Adress { get; set; } = string.Empty;
 }
