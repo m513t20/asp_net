@@ -36,6 +36,6 @@ public class Organisation : IId<Guid>, IName
     // TODO: Параметр для валидации адреса
     [Required]
     [StringLength(255)]
-    [AdressTemplate]
+    [AdressTemplate(",")]
     public string Adress { get; set; } = string.Empty;
 }

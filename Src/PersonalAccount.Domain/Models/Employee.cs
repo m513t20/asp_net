@@ -32,5 +32,6 @@ public class Employee : IId<long>, IName
     /// <summary>
     /// Организация работодатель.
     /// </summary>
+    [Required]
     public Organisation WorkOrganisation { get; set; }
 }

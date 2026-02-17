@@ -15,7 +15,7 @@ public class ValidationTests
     public void Validate_PhoneAttribute()
     {
         // Подготовка
-        var employee = new Employee(){ Name = "Joe", Phone = "88005553535" };
+        var employee = new Employee(){ Name = "Joe", Phone = "88005553535", WorkOrganisation = new() };
 
         // Действие
         bool result = PropertyValidator.ValidateModel(employee);
@@ -64,7 +64,7 @@ public class ValidationTests
     public void Validate_AdressAttribute()
     {
         // Подготовка
-        var organisation = new Organisation(){ Name = "OOO RGD", Settings = new(), Adress = "1234567899876543211" };
+        var organisation = new Organisation(){ Name = "OOO RGD", Settings = new(), Adress = "обл Иркутская, р-н Шелеховский, с Баклаши, ул Иркутская, дом 1, кв 1" };
 
         // Действие
         bool result = PropertyValidator.ValidateModel(organisation);
@@ -80,7 +80,7 @@ public class ValidationTests
     public void Validate_WrongAdressAttribute()
     {
         // Подготовка
-        var organisation = new Organisation(){ Name = "OOO RGD", Settings = new(), Adress = "1234567898765432232321" };
+        var organisation = new Organisation(){ Name = "OOO RGD", Settings = new(), Adress = "с Баклаши, ул Иркутская, дом 1, кв 1" };
 
         // Действие
         bool result = PropertyValidator.ValidateModel(organisation);

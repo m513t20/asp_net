@@ -10,16 +10,18 @@ namespace PersonalAccount.Domain.Core.Attributes;
 public class AdressTemplateAttribute : ValidationAttribute
 {
     /// <summary>
-    /// Шаблон для проверки телефонного номера.
+    /// Шаблон для проверки адреса.
     /// </summary>
-    public string Template { get; set; } = """^\d{2}\d{3}\d{3}\d{3}\d{4}\d{4}$""";
+    public string SplitChar { get; set; }
 
     /// <summary>
     /// Создать инстанс класса <see cref="AdressTemplateAttribute">
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
-    public AdressTemplateAttribute()
-    {  }
+    public AdressTemplateAttribute(string splitChar)
+    {
+        SplitChar = splitChar;
+    }
 
     /// <summary>
     /// Валидация аттрибута Кладр - 19 цифр.
@@ -29,14 +31,15 @@ public class AdressTemplateAttribute : ValidationAttribute
     /// <returns></returns>
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        var match = new Regex(Template);
+        var match = new Regex(SplitChar);
         if (
             value is not string stringValue
             || stringValue == null
-            || !match.IsMatch(stringValue)
+            || match.Matches(stringValue).Count < 5
+            || match.Matches(stringValue).Count > 6
         )
         {
-            return new ValidationResult(ErrorMessage ?? $"The field {validationContext.DisplayName} doesn't match with {Template} template");
+            return new ValidationResult(ErrorMessage ?? $"The field {validationContext.DisplayName} doesn't match with {SplitChar} template");
         }
 
         return ValidationResult.Success;
