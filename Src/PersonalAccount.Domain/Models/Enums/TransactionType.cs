@@ -6,12 +6,43 @@ namespace PersonalAccount.Domain.Models.Enums;
 public enum TransactionType
 {
     /// <summary>
-    /// Покупка.
+    /// PLU Sales.
     /// </summary>
-    Purchase,
+    PLUSale = 101,
 
     /// <summary>
-    /// Продажа.
+    /// Списание по себестоимости.
     /// </summary>
-    Sale,
+    WriteOff = 111,
+
+    
+    /// <summary>
+    /// Оплата наличными.
+    /// </summary>
+    Cash = 211,
+
+    /// <summary>
+    /// Оплата картой.
+    /// </summary>
+    Visa = 216,
+
+    /// <summary>
+    /// Вход в систему.
+    /// </summary>
+    Login = 301,
+
+    /// <summary>
+    /// Начало работы
+    /// </summary>
+    JobStart = 386,
+
+    /// <summary>
+    /// Окончание работы.
+    /// </summary>
+    JobFinish = 387,
+
+    /// <summary>
+    /// Итоговое значение.
+    /// </summary>
+    Total = 501,
 }

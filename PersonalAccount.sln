@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.UnitTests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Console", "Src\PersonalAccount.Console\PersonalAccount.Console.csproj", "{37040E0D-DCA5-4598-A94B-B58C47FAF9ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Performance", "Src\PersonalAccount.Performance\PersonalAccount.Performance.csproj", "{A544A4F4-6264-4BFB-989B-838A6EB58D5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{37040E0D-DCA5-4598-A94B-B58C47FAF9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37040E0D-DCA5-4598-A94B-B58C47FAF9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37040E0D-DCA5-4598-A94B-B58C47FAF9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A544A4F4-6264-4BFB-989B-838A6EB58D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A544A4F4-6264-4BFB-989B-838A6EB58D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A544A4F4-6264-4BFB-989B-838A6EB58D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A544A4F4-6264-4BFB-989B-838A6EB58D5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +45,6 @@ Global
 		{EC726B3B-19A5-43DE-A89C-CC1D921249ED} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
 		{3B081269-C3CA-4633-ADD3-3B6E58156A2C} = {28E40218-38D8-4CD5-B8CA-E70A128BF65D}
 		{37040E0D-DCA5-4598-A94B-B58C47FAF9ED} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
+		{A544A4F4-6264-4BFB-989B-838A6EB58D5F} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
 	EndGlobalSection
 EndGlobal
