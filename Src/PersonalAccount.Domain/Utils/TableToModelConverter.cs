@@ -24,14 +24,15 @@ public class TableToModelConverter
 
         var type = typeof(DtoJournalEntry);
         var properties = type.GetProperties()
-               .Where(x => x.GetCustomAttribute<DatabaseAttributeMSSQL>(true) is not null)
+               .Where(x => x.GetCustomAttribute<DatabaseNameAttribute>(true) is not null)
+               .Where(x => x.GetCustomAttribute<DatabaseNameAttribute>(true)?.DBType == DatabaseTypes.MSSql)
                .Where(x => x.Name != nameof(DtoJournalEntry.EmployeeId))
                .Where(x => x.Name != nameof(DtoJournalEntry.NomenclatureId));
 
         // Перевод основных полей
         foreach (var property in properties)
         {
-            var tableAttribute = property.GetCustomAttribute<DatabaseAttributeMSSQL>() 
+            var tableAttribute = property.GetCustomAttribute<DatabaseNameAttribute>() 
                 ?? throw new NullReferenceException("attribute is null");
 
             if (row[tableAttribute.Name] is string value && value == "")
@@ -51,7 +52,7 @@ public class TableToModelConverter
         var idProperty = isJobRelated ? 
             type.GetProperty(nameof(DtoJournalEntry.EmployeeId))
             : type.GetProperty(nameof(DtoJournalEntry.NomenclatureId));
-        var tableIdAttribute = idProperty!.GetCustomAttribute<DatabaseAttributeMSSQL>()
+        var tableIdAttribute = idProperty!.GetCustomAttribute<DatabaseNameAttribute>()
             ?? throw new NullReferenceException("attribute is null");
         if ((string)row[tableIdAttribute.Name] != "")
             idProperty!.SetValue(dto,  Convert.ChangeType(row[tableIdAttribute.Name], tableIdAttribute.DataType));

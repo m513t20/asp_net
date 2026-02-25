@@ -21,64 +21,64 @@ public class DtoJournalEntry : IId<long>
     /// </summary>
     [Required]
     [StringLength(20)]
-    [DatabaseAttributeMSSQL("receiptn", typeof(string))]
+    [DatabaseName("receiptn", typeof(string), Enums.DatabaseTypes.MSSql)]
     public string ReceiptNumber { get; set; }
 
     /// <summary>
     /// Уникальный код сотрудника.
     /// </summary>
-    [DatabaseAttributeMSSQL("id", typeof(long))]
+    [DatabaseName("id", typeof(long), Enums.DatabaseTypes.MSSql)]
     public long EmployeeId { get; set; }
 
     /// <summary>
     /// Уникальный код номенклатуры.
     /// </summary>
-    [DatabaseAttributeMSSQL("id", typeof(long))]
+    [DatabaseName("id", typeof(long), Enums.DatabaseTypes.MSSql)]
     public long NomenclatureId { get; set; }
 
     /// <summary>
     /// Описание.
     /// </summary>
     [StringLength(255)]
-    [DatabaseAttributeMSSQL("description", typeof(string))]
+    [DatabaseName("description", typeof(string), Enums.DatabaseTypes.MSSql)]
     public string Description { get; set; }
 
     /// <summary>
     /// Уникальный код категории.
     /// </summary>
-    [DatabaseAttributeMSSQL("categoryid", typeof(int))]
+    [DatabaseName("categoryid", typeof(int), Enums.DatabaseTypes.MSSql)]
     public int CategoryId { get; set; }
 
     /// <summary>
     /// Уникальный код операции.
     /// </summary>
     [Required]
-    [DatabaseAttributeMSSQL("transtype", typeof(long))]
+    [DatabaseName("transtype", typeof(long), Enums.DatabaseTypes.MSSql)]
     public long TransactionId { get; set; }
 
     /// <summary>
     /// Дата транзакции с временной зоной.
     /// </summary>
-    [DatabaseAttributeMSSQL("dater", typeof(DateTimeOffset))]
+    [DatabaseName("dater", typeof(DateTimeOffset), Enums.DatabaseTypes.MSSql)]
     public DateTimeOffset TransactionDate { get; set; }
 
     /// <summary>
     /// Количество.
     /// </summary>
     [Required]
-    [DatabaseAttributeMSSQL("quantity", typeof(int))]
+    [DatabaseName("quantity", typeof(int), Enums.DatabaseTypes.MSSql)]
     public int Amount { get; set; }
 
     /// <summary>
     /// Сумма.
     /// </summary>
     [Required]
-    [DatabaseAttributeMSSQL("price", typeof(int))]
+    [DatabaseName("price", typeof(int), Enums.DatabaseTypes.MSSql)]
     public int Total { get; set; }
 
     /// <summary>
     /// Сумма скидки.
     /// </summary>
-    [DatabaseAttributeMSSQL("discountgroup", typeof(uint))]
+    [DatabaseName("discountgroup", typeof(uint), Enums.DatabaseTypes.MSSql)]
     public uint Discount { get; set; }
 }

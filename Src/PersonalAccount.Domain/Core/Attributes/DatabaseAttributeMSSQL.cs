@@ -1,13 +1,29 @@
 using System;
-using PersonalAccount.Domain.Core.Attributes.Abstract;
+using PersonalAccount.Domain.Models.Enums;
 
 namespace PersonalAccount.Domain.Core.Attributes;
 
 /// <summary>
-/// Аттрибут для перевода данных таблицы типа mssql в модели.
+/// атрибут для перевода из базы данных.
 /// </summary>
-public class DatabaseAttributeMSSQL : DatabaseNameAttribute
+public class DatabaseNameAttribute : Attribute
 {
-    public DatabaseAttributeMSSQL(string name, Type dataType) : base(name, dataType)
-    { }
+    /// <summary>
+    /// Шаблон для проверки адреса.
+    /// </summary>
+    public string Name { get; set; }
+
+    public Type DataType { get; set; }
+
+    public DatabaseTypes DBType { get; set; }
+
+    /// <summary>
+    /// Создать инстанс класса <see cref="DatabaseNameAttribute">
+    /// </summary>
+    public DatabaseNameAttribute(string name, Type dataType, DatabaseTypes dbType)
+    {
+        Name = name;
+        DataType = dataType;
+        DBType = dbType;
+    }
 }
