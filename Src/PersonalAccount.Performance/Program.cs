@@ -20,7 +20,7 @@ Stopwatch stopWatch = new Stopwatch();
 
 // День
 stopWatch.Start();
-var sql = "select * from journal where dater = '2023-02-01'";
+var sql = "select * from journal where  CAST(dater AS DATE) = '2023-02-01'";
 var command = new SqlCommand(sql, connect);
 var adapter = new SqlDataAdapter(command);
 var dataset = new DataSet();
@@ -32,7 +32,7 @@ Console.WriteLine($"One day operation ran in {ts.TotalMilliseconds} ms");
 
 // месяц
 stopWatch.Restart();
-sql = "select * from journal where dater >= '2023-02-01' AND dater < '2023-03-01'";
+sql = "select * from journal where  CAST(dater AS DATE)  >= '2023-02-01' AND  CAST(dater AS DATE)  < '2023-03-01'";
 command = new SqlCommand(sql, connect);
 adapter = new SqlDataAdapter(command);
 dataset = new DataSet();
@@ -44,7 +44,7 @@ Console.WriteLine($"One month operation ran in {ts.TotalMilliseconds} ms");
 
 // Квартал
 stopWatch.Restart();
-sql = "select * from journal where dater >= '2023-03-01' AND dater < '2023-06-01'";
+sql = "select * from journal where  CAST(dater AS DATE)  >= '2023-03-01' AND  CAST(dater AS DATE)  < '2023-06-01'";
 command = new SqlCommand(sql, connect);
 adapter = new SqlDataAdapter(command);
 dataset = new DataSet();
