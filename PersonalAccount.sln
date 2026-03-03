@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Console", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Performance", "Src\PersonalAccount.Performance\PersonalAccount.Performance.csproj", "{A544A4F4-6264-4BFB-989B-838A6EB58D5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Data", "Src\PersonalAccount.Data\PersonalAccount.Data.csproj", "{8EACFC28-6215-4884-BEFF-190664CDDEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Api", "Src\PersonalAccount.Api\PersonalAccount.Api.csproj", "{EF1E8538-A08D-4420-A2FD-5B08F91CC099}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{A544A4F4-6264-4BFB-989B-838A6EB58D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A544A4F4-6264-4BFB-989B-838A6EB58D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A544A4F4-6264-4BFB-989B-838A6EB58D5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EACFC28-6215-4884-BEFF-190664CDDEAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EACFC28-6215-4884-BEFF-190664CDDEAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EACFC28-6215-4884-BEFF-190664CDDEAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EACFC28-6215-4884-BEFF-190664CDDEAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1E8538-A08D-4420-A2FD-5B08F91CC099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1E8538-A08D-4420-A2FD-5B08F91CC099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1E8538-A08D-4420-A2FD-5B08F91CC099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1E8538-A08D-4420-A2FD-5B08F91CC099}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +58,7 @@ Global
 		{3B081269-C3CA-4633-ADD3-3B6E58156A2C} = {28E40218-38D8-4CD5-B8CA-E70A128BF65D}
 		{37040E0D-DCA5-4598-A94B-B58C47FAF9ED} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
 		{A544A4F4-6264-4BFB-989B-838A6EB58D5F} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
+		{8EACFC28-6215-4884-BEFF-190664CDDEAB} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
+		{EF1E8538-A08D-4420-A2FD-5B08F91CC099} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
 	EndGlobalSection
 EndGlobal

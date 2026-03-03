@@ -24,13 +24,6 @@ public class Transaction : IId<long>
     public TransactionType Type {get; set;}
 
     /// <summary>
-    /// Уникальный номер чека.
-    /// </summary>
-    [Required]
-    [StringLength(20)]
-    public string ReceiptNumber { get; set; }
-
-    /// <summary>
     /// Обслуживший сотрудник.
     /// </summary>
     public Employee ServedBy { get; set; }
