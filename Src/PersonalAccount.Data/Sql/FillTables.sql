@@ -61,3 +61,10 @@ INSERT INTO load_settings (pack_size, load_data_type, organisation_id) VALUES
 (100, 1, '5eefff0e-b7dc-4c07-9b71-9115873bb8f3'),
 (50, 2, '3da36fae-98fd-41ce-8c70-f6e80e23c6ff');
 
+INSERT INTO users (id, login, password) VALUES
+('6eefff0e-b7dc-4c07-9b71-9115873bb8f3', 'admin', 'admin'),
+('7da36fae-98fd-41ce-8c70-f6e80e23c6ff', 'user', 'user');
+
+INSERT INTO connections (user_id, organisation_id) VALUES
+('6eefff0e-b7dc-4c07-9b71-9115873bb8f3', '5eefff0e-b7dc-4c07-9b71-9115873bb8f3'),
+('7da36fae-98fd-41ce-8c70-f6e80e23c6ff', '3da36fae-98fd-41ce-8c70-f6e80e23c6ff');
