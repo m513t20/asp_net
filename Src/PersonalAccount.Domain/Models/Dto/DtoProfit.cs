@@ -1,13 +1,13 @@
 using System;
+using PersonalAccount.Domain.Core.Interfaces;
 
 namespace PersonalAccount.Domain.Models.Dto;
 
 /// <summary>
 /// Модель Dto для учета выручки.
 /// </summary>
-public class DtoProfit
+public class DtoProfit : IDto
 {
-// | Период | Сумма оплаты наличные | Сумма оплаты безналично | Сумма оплаты остальное | Сумма скидки | Флаг "Праздник" | Код организации |
     /// <summary>
     /// Начало периода.
     /// </summary>

@@ -43,4 +43,24 @@ public class Transaction : IId<long>
     /// Дата и время закрытия чека.
     /// </summary>
     public DateTimeOffset ClosingTime { get; set; }
+
+    /// <summary>
+    /// Используемая номенклатура.
+    /// </summary>
+    public Nomenclature UsedNomenclature { get; set; }
+
+    /// <summary>
+    /// Количество.
+    /// </summary>
+    public int Amount { get; set; }
+
+    /// <summary>
+    /// Сумма.
+    /// </summary>
+    public int Total { get; set; }
+
+    /// <summary>
+    /// Сумма скидки.
+    /// </summary>
+    public uint Discount { get; set; }
 }

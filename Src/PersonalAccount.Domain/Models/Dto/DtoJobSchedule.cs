@@ -1,11 +1,12 @@
 using System;
+using PersonalAccount.Domain.Core.Interfaces;
 
 namespace PersonalAccount.Domain.Models.Dto;
 
 /// <summary>
 /// Модель Dto для учета графика работы.
 /// </summary>
-public class DtoJobSchedule
+public class DtoJobSchedule : IDto
 {
     /// <summary>
     /// Код сотрудника

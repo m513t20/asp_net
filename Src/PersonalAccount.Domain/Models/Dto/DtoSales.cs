@@ -1,11 +1,12 @@
 using System;
+using PersonalAccount.Domain.Core.Interfaces;
 
 namespace PersonalAccount.Domain.Models.Dto;
 
 /// <summary>
 /// Модель Dto для учета выручки.
 /// </summary>
-public class DtoSales
+public class DtoSales : IDto
 {
     /// <summary>
     /// Код группы.
