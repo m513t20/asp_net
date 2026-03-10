@@ -28,4 +28,10 @@ public class LoadSettings : IId<Guid>
     /// </summary>
     [Required]
     public LoadDataTypes LoadDataType { get; set; }
+
+    /// <summary>
+    /// Тип принимаемых данных.
+    /// </summary>
+    [Required]
+    public Organisation UserOrganisation { get; set; }
 }
