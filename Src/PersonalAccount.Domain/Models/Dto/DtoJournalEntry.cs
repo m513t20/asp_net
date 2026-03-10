@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using PersonalAccount.Domain.Core.Attributes;
 using PersonalAccount.Domain.Core.Interfaces;
 
-namespace PersonalAccount.Domain.Models;
+namespace PersonalAccount.Domain.Models.Dto;
 
 /// <summary>
 /// Модель Dto - запись в журнале.
