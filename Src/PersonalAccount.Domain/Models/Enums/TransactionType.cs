@@ -45,4 +45,9 @@ public enum TransactionType
     /// Итоговое значение.
     /// </summary>
     Total = 501,
+
+    /// <summary>
+    /// Сдача
+    /// </summary>
+    RefundPayment = 102
 }
