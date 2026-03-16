@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Data", "Src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Api", "Src\PersonalAccount.Api\PersonalAccount.Api.csproj", "{EF1E8538-A08D-4420-A2FD-5B08F91CC099}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Benchmark", "Tst\PersonalAccount.Benchmark\PersonalAccount.Benchmark.csproj", "{9B92030A-E964-4C0C-B709-7DC584DE342D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{EF1E8538-A08D-4420-A2FD-5B08F91CC099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF1E8538-A08D-4420-A2FD-5B08F91CC099}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF1E8538-A08D-4420-A2FD-5B08F91CC099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B92030A-E964-4C0C-B709-7DC584DE342D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B92030A-E964-4C0C-B709-7DC584DE342D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B92030A-E964-4C0C-B709-7DC584DE342D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B92030A-E964-4C0C-B709-7DC584DE342D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{A544A4F4-6264-4BFB-989B-838A6EB58D5F} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
 		{8EACFC28-6215-4884-BEFF-190664CDDEAB} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
 		{EF1E8538-A08D-4420-A2FD-5B08F91CC099} = {406FD69A-B2EC-444E-9E8C-04AA315030A6}
+		{9B92030A-E964-4C0C-B709-7DC584DE342D} = {28E40218-38D8-4CD5-B8CA-E70A128BF65D}
 	EndGlobalSection
 EndGlobal
