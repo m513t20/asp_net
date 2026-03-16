@@ -31,4 +31,5 @@ public class DtoJobSchedule : IDto
     /// <summary>
     /// Код организации.
     /// </summary>
-    public Guid OrganisationId { get; set; }}
+    public Guid OrganisationId { get; set; }
+}   

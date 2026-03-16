@@ -29,6 +29,11 @@ public class DtoSales : IDto
     public string NomenclatureName { get; set; } = string.Empty;
 
     /// <summary>
+    /// Дата продажи.
+    /// </summary>
+    public DateTimeOffset SaleDate { get; set; }
+
+    /// <summary>
     /// Количество.
     /// </summary>
     public int Amount { get; set; }
