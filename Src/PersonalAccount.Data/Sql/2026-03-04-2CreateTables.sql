@@ -14,14 +14,14 @@ CREATE TABLE IF NOT EXISTS "organisations" (
 );
 
 CREATE TABLE IF NOT EXISTS "categories" (
-	"id" serial NOT NULL UNIQUE,
+	"id" bigint NOT NULL UNIQUE,
 	"name" varchar(255) NOT NULL,
 	"organisation_id" uuid NOT NULL,
 	PRIMARY KEY ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "employers" (
-	"id" serial NOT NULL UNIQUE,
+	"id" bigint NOT NULL UNIQUE,
 	"name" varchar(255) NOT NULL,
 	"phone" varchar(11),
 	"organisation_id" uuid NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "employers" (
 );
 
 CREATE TABLE IF NOT EXISTS "nomenclature" (
-	"id" serial NOT NULL UNIQUE,
+	"id" bigint NOT NULL UNIQUE,
 	"category_id" bigint NOT NULL,
 	"measure_unit" varchar(100) NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS "nomenclature" (
 );
 
 CREATE TABLE IF NOT EXISTS "transactions" (
-	"id" serial NOT NULL UNIQUE,
+	"id" bigint NOT NULL UNIQUE,
 	"type" bigint,
 	"employee_id" bigint,
 	"organisation_id" uuid,
@@ -62,13 +62,13 @@ CREATE TABLE IF NOT EXISTS "journal" (
 );
 
 CREATE TABLE IF NOT EXISTS "load_types" (
-	"id" serial NOT NULL UNIQUE,
+	"id" bigint NOT NULL UNIQUE,
 	"name" varchar(255) NOT NULL,
 	PRIMARY KEY ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "transaction_types" (
-	"id" serial NOT NULL UNIQUE,
+	"id" bigint NOT NULL UNIQUE,
 	"name" varchar(255) NOT NULL,
 	PRIMARY KEY ("id")
 );
@@ -111,3 +111,4 @@ ALTER TABLE "journal" ADD CONSTRAINT "journal_fk6" FOREIGN KEY ("transaction_id"
 ALTER TABLE "connections" ADD CONSTRAINT "connections_fk1" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "connections" ADD CONSTRAINT "connections_fk2" FOREIGN KEY ("organisation_id") REFERENCES "organisations"("id");
 
+ALTER TABLE "public"."organisations" add column load_options jsonb;

@@ -2,7 +2,7 @@ using System.Data;
 using System.Reflection;
 using PersonalAccount.Domain.Core;
 using PersonalAccount.Domain.Core.Attributes;
-using PersonalAccount.Domain.Models;
+using PersonalAccount.Domain.Models.Dto;
 using PersonalAccount.Domain.Models.Enums;
 
 namespace PersonalAccount.Domain.Utils;

@@ -1,0 +1,72 @@
+[
+    {
+        "Id": 1,
+        "Type": 211,
+        "ServedBy": {
+            "Id": 101,
+            "Name": "Иван Петров",
+            "Phone": "89991234567",
+            "WorkOrganisation": {
+                "Id": "3f4e7b5a-8c2d-4f1e-9a7b-c8d3e1f2a4b5",
+                "Name": "Кофейня у дома",
+                "Settings": {},
+                "Adress": "ул. Ленина, 1"
+            }
+        },
+        "ServedIn": {
+            "Id": "3f4e7b5a-8c2d-4f1e-9a7b-c8d3e1f2a4b5",
+            "Name": "Кофейня у дома",
+            "Settings": {},
+            "Adress": "ул. Ленина, 1"
+        },
+        "OpeningTime": "2025-03-15T09:30:00+03:00",
+        "ClosingTime": "2025-03-15T09:30:00+03:00",
+        "UsedNomenclature": {
+            "Id": 1001,
+            "Name": "Кофе американо",
+            "ParentCategory": {
+                "Id": 1,
+                "Name": "Напитки"
+            },
+            "MeasureUnit": "порц"
+        },
+        "Amount": 2,
+        "Total": 300,
+        "Discount": 20
+    },
+    {
+        "Id": 2,
+        "Type": 102,
+        "servedBy": {
+        "Id": 101,
+        "Name": "Иван Петров",
+        "Phone": "89991234567",
+        "WorkOrganisation": {
+            "Id": "3f4e7b5a-8c2d-4f1e-9a7b-c8d3e1f2a4b5",
+            "Name": "Кофейня у дома",
+            "Settings": {},
+            "Adress": "ул. Ленина, 1"
+        }
+        },
+        "ServedIn": {
+            "Id": "3f4e7b5a-8c2d-4f1e-9a7b-c8d3e1f2a4b5",
+            "Name": "Кофейня у дома",
+            "Settings": {},
+            "Adress": "ул. Ленина, 1"
+        },
+        "OpeningTime": "2025-03-15T18:45:00+03:00",
+        "ClosingTime": "2025-03-15T18:45:00+03:00",
+        "UsedNomenclature": {
+            "Id": 1001,
+            "Name": "Кофе американо",
+            "ParentCategory": {
+                "Id": 1,
+                "Name": "Напитки"
+            },
+            "MeasureUnit": "порц"
+        },
+        "Amount": 1,
+        "Total": -150,
+        "Discount": 0
+    }
+]
