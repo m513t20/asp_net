@@ -31,10 +31,22 @@ public class DtoJournalEntry : IId<long>, IDto
     public long EmployeeId { get; set; }
 
     /// <summary>
+    /// Имя сотрудника.
+    /// </summary>
+    [DatabaseName("ManagerName", typeof(string), Enums.DatabaseTypes.MSSql)]
+    public string EmployeeName { get; set; }
+
+    /// <summary>
     /// Уникальный код номенклатуры.
     /// </summary>
     [DatabaseName("id", typeof(long), Enums.DatabaseTypes.MSSql)]
     public long NomenclatureId { get; set; }
+
+    /// <summary>
+    /// Имя номенклатуры.
+    /// </summary>
+    [DatabaseName("description", typeof(string), Enums.DatabaseTypes.MSSql)]
+    public string NomenclatureName { get; set; }
 
     /// <summary>
     /// Описание.
@@ -48,6 +60,12 @@ public class DtoJournalEntry : IId<long>, IDto
     /// </summary>
     [DatabaseName("categoryid", typeof(int), Enums.DatabaseTypes.MSSql)]
     public int CategoryId { get; set; }
+
+    /// <summary>
+    /// Имя категории.
+    /// </summary>
+    [DatabaseName("description", typeof(string), Enums.DatabaseTypes.MSSql)]
+    public string CategoryName { get; set; }
 
     /// <summary>
     /// Уникальный код операции.

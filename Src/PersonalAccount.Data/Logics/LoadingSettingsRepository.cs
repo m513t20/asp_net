@@ -16,7 +16,7 @@ public class LoadingSettingsRepository : ILoadSettingsRepository
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task<LoadSettings> Load(Domain.Models.Organisation organisation, CancellationToken cancellationToken)
+    public async Task<LoadSettings> LoadAsync(Domain.Models.Organisation organisation, CancellationToken cancellationToken)
     {
         var context = new PersonalAccountContext();
         var item = context.Organisations.FirstOrDefault( x=> x.Id == organisation.Id )
@@ -36,7 +36,7 @@ public class LoadingSettingsRepository : ILoadSettingsRepository
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public Task<bool> Save(LoadSettings loadSettings, CancellationToken cancellationToken)
+    public Task<bool> SaveAsync(LoadSettings loadSettings, CancellationToken cancellationToken)
     {
         var context = new PersonalAccountContext();
         var item = context.Organisations.FirstOrDefault( x=> x.Id == loadSettings.UserOrganisation.Id )

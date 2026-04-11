@@ -22,6 +22,9 @@ public class LoadSettings : IId<Guid>
     /// </summary>
     [Required]
     public int PackSize { get; set; }
+    
+    [Required]
+    public long StartPosition {get; set;}
 
     /// <summary>
     /// Тип принимаемых данных.

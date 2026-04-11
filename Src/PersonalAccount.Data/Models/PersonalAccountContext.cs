@@ -120,12 +120,21 @@ public partial class PersonalAccountContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.Property(e => e.CategoryName)
+                .HasMaxLength(255)
+                .HasColumnName("category_name");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Discount).HasColumnName("discount");
             entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+            entity.Property(e => e.EmployeeName)
+                .HasMaxLength(255)
+                .HasColumnName("employee_name");
             entity.Property(e => e.NomenclatureId).HasColumnName("nomenclature_id");
+            entity.Property(e => e.NomenclatureName)
+                .HasMaxLength(255)
+                .HasColumnName("nomenclature_name");
             entity.Property(e => e.RecieptNumber)
                 .HasMaxLength(20)
                 .HasColumnName("reciept_number");
