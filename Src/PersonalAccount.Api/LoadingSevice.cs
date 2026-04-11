@@ -8,6 +8,9 @@ using PersonalAccount.Domain.Models.Dto;
 
 namespace PersonalAccount.Api;
 
+/// <summary>
+/// Сревис для загрузки и сохранения журныальных записей.
+/// </summary>
 public class LoadingSevice : ILoadingService
 {
     private ILoadSettingsRepository _settingsReposity;
@@ -23,6 +26,13 @@ public class LoadingSevice : ILoadingService
         _connection = connection;
     }
 
+    /// <summary>
+    /// Вставить записи
+    /// </summary>
+    /// <param name="organisation"></param>
+    /// <param name="entries"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public bool Push(Domain.Models.Organisation organisation, IEnumerable<DtoJournalEntry> entries, CancellationToken token)
     {
         

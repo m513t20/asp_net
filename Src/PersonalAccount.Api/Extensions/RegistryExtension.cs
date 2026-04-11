@@ -19,7 +19,7 @@ namespace PersonalAccount.Console.Extensions;
 public static class RegistryPersonalAccounApi
 {
     /// <summary>
-    /// Зарегистрировать в констексте сервисы и модули PersonalAccount.Data
+    /// Зарегистрировать в констексте сервисы и модули PersonalAccount.Api
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configuration"></param>
