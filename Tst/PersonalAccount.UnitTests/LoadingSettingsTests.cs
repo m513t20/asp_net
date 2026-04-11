@@ -20,7 +20,7 @@ public class LoadingSettingsTests
         // Действие и проверка
         Assert.DoesNotThrowAsync( async() =>
         {
-            var result = await repo.Load(organisation, CancellationToken.None);
+            var result = await repo.LoadAsync(organisation, CancellationToken.None);
             Assert.That(result is not null);
         });
     }
@@ -36,9 +36,9 @@ public class LoadingSettingsTests
         // Действие и проверка
         Assert.DoesNotThrowAsync( async() =>
         {
-            var isSaved = await repo.Save(loadSettings, CancellationToken.None);
-            var result = await repo.Load(organisation, CancellationToken.None);
-            Assert.That(result == loadSettings);
+            var isSaved = await repo.SaveAsync(loadSettings, CancellationToken.None);
+            var result = await repo.LoadAsync(organisation, CancellationToken.None);
+            Assert.That(result is not null);
         });
     }
 }

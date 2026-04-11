@@ -13,7 +13,7 @@ public interface ILoadSettingsRepository
     /// </summary>
     /// <param name="loadSettings"></param>
     /// <returns></returns>
-    public Task<bool> Save(LoadSettings loadSettings, CancellationToken cancellationToken);
+    public Task<bool> SaveAsync(LoadSettings loadSettings, CancellationToken cancellationToken);
 
     /// <summary>
     /// Загрузить настройки.
@@ -21,5 +21,5 @@ public interface ILoadSettingsRepository
     /// <param name="organisation"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<LoadSettings> Load(Organisation organisation, CancellationToken cancellationToken);
+    public Task<LoadSettings> LoadAsync(Organisation organisation, CancellationToken cancellationToken);
 }

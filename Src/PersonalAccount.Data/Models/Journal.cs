@@ -11,11 +11,17 @@ public partial class Journal
 
     public long? EmployeeId { get; set; }
 
+    public string EmployeeName { get; set; } = null!;
+
     public long NomenclatureId { get; set; }
+
+    public string NomenclatureName { get; set; } = null!;
 
     public string Description { get; set; } = null!;
 
     public long CategoryId { get; set; }
+
+    public string CategoryName { get; set; } = null!;
 
     public long TransactionId { get; set; }
 

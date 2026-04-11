@@ -41,6 +41,8 @@ public class TableToModelConverter
             if (property.Name == nameof(DtoJournalEntry.TransactionDate) &&
                 row[tableAttribute.Name] is DateTime dateTime)
                 property.SetValue(dto,  new DateTimeOffset(dateTime));
+            else if (tableAttribute.DataType == typeof(string))
+                property.SetValue(dto,  row[tableAttribute.Name].ToString());
             else
                 property.SetValue(dto,  Convert.ChangeType(row[tableAttribute.Name], tableAttribute.DataType));
         }
@@ -54,7 +56,7 @@ public class TableToModelConverter
             : type.GetProperty(nameof(DtoJournalEntry.NomenclatureId));
         var tableIdAttribute = idProperty!.GetCustomAttribute<DatabaseNameAttribute>()
             ?? throw new NullReferenceException("attribute is null");
-        if ((string)row[tableIdAttribute.Name] != "")
+        if (row[tableIdAttribute.Name].ToString() != "")
             idProperty!.SetValue(dto,  Convert.ChangeType(row[tableIdAttribute.Name], tableIdAttribute.DataType));
         
         return dto;
