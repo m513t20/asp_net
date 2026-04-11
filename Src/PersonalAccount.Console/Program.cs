@@ -20,10 +20,10 @@ var builder = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json");
 
 var configuration = builder.Build();
-var options = configuration.Get<ApplicationOptions>()
+var options = configuration.Get<ConsoleOptions>()
             ?? throw new InvalidOperationException("Unable to load appsettings.json");
 
-using var connect = new SqlConnection(options.ConnectionString);
+using var connect = new SqlConnection(options.MsSqlConnectionString);
 connect.Open();
 
 var sql = "select Top 10 * from journal";
