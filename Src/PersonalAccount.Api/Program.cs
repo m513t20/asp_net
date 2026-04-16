@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using DbUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PersonalAccount.Api.Extensions;
 using PersonalAccount.Common.Models;
 using PersonalAccount.Data.Extensions;
-
+using Serilog;
 
 // Настройки и построитель Web приложения
 var builder = WebApplication.CreateBuilder();
@@ -15,9 +16,21 @@ var configuration = new ConfigurationBuilder()
                     .AddJsonFile("appsettings.json")
                     .Build();
 
+
 var options = configuration.GetSection(nameof(ApiOptions)).Get<ApiOptions>()
                         ?? throw new InvalidOperationException($"Невозможно загрузить настройки из секции {nameof(ApiOptions)}!");
-                 
+
+Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.File(
+                    path: "PersonalAccountApi_.log",
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 30
+                )
+                .CreateLogger();                 
+
+Log.Information("Начало запуска Personal Account Api");
+
 // Миграции
 var upgrader =  DeployChanges.To
             .PostgresqlDatabase(  options.ConnectionString )
@@ -28,11 +41,9 @@ var upgrader =  DeployChanges.To
 var result = upgrader.PerformUpgrade();
 if (!result.Successful)
 {
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine(result.Error);
-    Console.ResetColor();
+    Log.Error( result.Error, "Ошибка при миграции данных!");
+    return;
 }
-
 
 // Подключение сервисов
 builder.Services
@@ -50,4 +61,5 @@ application.UseRouting();
 application.MapControllers();
 
 // Запуск
+Log.Information("Приложение Personal Account запущено успешно!");
 application.Run();
