@@ -29,6 +29,7 @@ public static class RegistryExtension
 
         services.AddScoped<  IClientRepository<JournalRowDto> , JournalReadRepository >();
         services.AddSingleton( x => options );
+        services.AddHostedService<BackgroundPushServer>();
         return services;
     }
 }

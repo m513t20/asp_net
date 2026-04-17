@@ -9,8 +9,6 @@ public partial class Transaction
 
     public int TransactionType { get; set; }
 
-    public Guid CompanyId { get; set; }
-
     public DateTime ChangePeriod { get; set; }
 
     public Guid? NomenclatureId { get; set; }
@@ -23,7 +21,9 @@ public partial class Transaction
 
     public decimal? Discount { get; set; }
 
-    public virtual Company Company { get; set; } = null!;
+    public Guid? AffiliateId { get; set; }
+
+    public virtual Affiliate? Affiliate { get; set; }
 
     public virtual Emploee? Emloee { get; set; }
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalAccount.Common.Core;
 using PersonalAccount.Domain.Models;
 using PersonalAccount.Domain.Models.Dto;
+using Serilog;
 
 namespace PersonalAccount.Api.Controllers
 {

@@ -43,12 +43,12 @@ public partial class PersonalAccountContext : DbContext
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
-            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            // entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.Name).HasColumnName("name");
 
-            entity.HasOne(d => d.Company).WithMany(p => p.Categories)
-                .HasForeignKey(d => d.CompanyId)
-                .HasConstraintName("categories_company_id_fk");
+            // entity.HasOne(d => d.Company).WithMany(p => p.Categories)
+            //     .HasForeignKey(d => d.CompanyId)
+            //     .HasConstraintName("categories_company_id_fk");
         });
 
         modelBuilder.Entity<Company>(entity =>
@@ -79,13 +79,13 @@ public partial class PersonalAccountContext : DbContext
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
-            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            // entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Phone).HasColumnName("phone");
 
-            entity.HasOne(d => d.Company).WithMany(p => p.Emploees)
-                .HasForeignKey(d => d.CompanyId)
-                .HasConstraintName("emploees_company_id_fk");
+            // entity.HasOne(d => d.Company).WithMany(p => p.Emploees)
+            //     .HasForeignKey(d => d.CompanyId)
+            //     .HasConstraintName("emploees_company_id_fk");
         });
 
         modelBuilder.Entity<LinksUserCompany>(entity =>
@@ -151,7 +151,7 @@ public partial class PersonalAccountContext : DbContext
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
             entity.Property(e => e.ChangePeriod).HasColumnName("change_period");
-            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            // entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.Discount)
                 .HasPrecision(15, 2)
                 .HasColumnName("discount");
@@ -165,10 +165,10 @@ public partial class PersonalAccountContext : DbContext
                 .HasColumnName("quantity");
             entity.Property(e => e.TransactionType).HasColumnName("transaction_type");
 
-            entity.HasOne(d => d.Company).WithMany(p => p.Transactions)
-                .HasForeignKey(d => d.CompanyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("transactions_company_id_fk");
+            // entity.HasOne(d => d.Company).WithMany(p => p.Transactions)
+            //     .HasForeignKey(d => d.CompanyId)
+            //     .OnDelete(DeleteBehavior.ClientSetNull)
+            //     .HasConstraintName("transactions_company_id_fk");
 
             entity.HasOne(d => d.Emloee).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.EmloeeId)

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PersonalAccount.Api.Extensions;
 using PersonalAccount.Common.Models;
 using PersonalAccount.Data.Extensions;
+using Serilog;
 
 
 // Настройки и построитель Web приложения
@@ -18,6 +19,15 @@ var configuration = new ConfigurationBuilder()
 var options = configuration.GetSection(nameof(ApiOptions)).Get<ApiOptions>()
                         ?? throw new InvalidOperationException($"Невозможно загрузить настройки из секции {nameof(ApiOptions)}!");
                  
+Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File(
+                path: "PersonalAccount.Api.log",
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 30
+            )
+            .CreateLogger();
+
 // Миграции
 var upgrader =  DeployChanges.To
             .PostgresqlDatabase(  options.ConnectionString )
@@ -28,6 +38,7 @@ var upgrader =  DeployChanges.To
 var result = upgrader.PerformUpgrade();
 if (!result.Successful)
 {
+    Log.Error( result.Error, "Ошибка при генерации данных" );
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine(result.Error);
     Console.ResetColor();
@@ -50,4 +61,5 @@ application.UseRouting();
 application.MapControllers();
 
 // Запуск
+Log.Information("Приложение Personal Account запущено успешно!");
 application.Run();
