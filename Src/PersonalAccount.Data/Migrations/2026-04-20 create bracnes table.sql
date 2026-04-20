@@ -19,16 +19,13 @@ on delete no action;
 
 -- Копируем данные
 insert into branches(company_id, name, load_options)
-select id, name, load_options from companies;
+select id, name, null as load_options from companies;
 
 -- Меняем структуру
+truncate table journal;
 alter table transactions add branch_id uuid not null;
 update transactions set company_id = null;
 update transactions set branch_id = (select id from branches limit 1);
 alter table transactions drop column company_id;
 
 alter table journal add branch_id uuid not null;
-
--- Обновляю настройки
-update branches set load_options = '{"Id": "00000000-0000-0000-0000-000000000000", "Owner": {"Id": "' 
-|| (select id from branches limit 1 )::text || '", "Name": "TEST"}, "BatchSize": 1000, "Description": "", "StartPosition": 1}';
