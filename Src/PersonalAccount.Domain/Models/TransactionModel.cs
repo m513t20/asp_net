@@ -27,6 +27,12 @@ public class TransactionModel : DomainModel
     public CompanyModel Owner {get;set;} = null!;
 
     /// <summary>
+    /// Подразделение
+    /// </summary>
+    [Required]
+    public BranchModel Branch { get; set;} = null!;
+
+    /// <summary>
     /// Период операции.
     /// </summary>
     [Required]
