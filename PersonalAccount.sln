@@ -37,6 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Histories", "Histories", "{
 		Step01.md = Step01.md
 		Step02.md = Step02.md
 		Step03.md = Step03.md
+		Step04.md = Step04.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Data", "Src\PersonalAccount.Data\PersonalAccount.Data.csproj", "{18BB4D91-9BFF-423D-A526-7EACE8FE2173}"
