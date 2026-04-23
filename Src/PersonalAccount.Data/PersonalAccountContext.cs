@@ -151,7 +151,7 @@ public partial class PersonalAccountContext : DbContext
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
             entity.Property(e => e.ChangePeriod).HasColumnName("change_period");
-            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            //entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.Discount)
                 .HasPrecision(15, 2)
                 .HasColumnName("discount");
@@ -165,11 +165,12 @@ public partial class PersonalAccountContext : DbContext
                 .HasColumnName("quantity");
             entity.Property(e => e.TransactionType).HasColumnName("transaction_type");
 
+/*
             entity.HasOne(d => d.Company).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.CompanyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("transactions_company_id_fk");
-
+*/
             entity.HasOne(d => d.Emloee).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.EmloeeId)
                 .HasConstraintName("transactions_emloee_id_fk");
