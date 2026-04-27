@@ -4,7 +4,7 @@ using PersonalAccount.Domain.Core;
 namespace PersonalAccount.Common.Core;
 
 /// <summary>
-/// Универсальный интерфейс для записи в бд
+/// Универсальный интерфейс для записи данных в бд.
 /// </summary>
 /// <typeparam name="TData"></typeparam>
 /// <typeparam name="TId"></typeparam>
