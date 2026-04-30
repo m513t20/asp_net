@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using PersonalAccount.Common.Core;
 using PersonalAccount.Common.Models;
 using PersonalAccount.Console.Logics;
-using PersonalAccount.Domain.Models;
 using PersonalAccount.Domain.Models.Dto;
 
 namespace PersonalAccount.Console.Extensions;
@@ -29,13 +28,6 @@ public static class RegistryExtension
                         ?? throw new InvalidOperationException($"Невозможно загрузить настройки из секции {nameof(ConsoleOptions)}!");
 
         services.AddScoped<  IClientRepository<JournalRowDto> , JournalReadRepository >();
-        
-        // интерфейсы для чтения данных с клиента
-        services.AddScoped<IReader<EmploeeModel, Guid>, EmploeeWriter>();
-        services.AddScoped<IReader<CategoryModel, Guid>, CategoryWriter>();
-        services.AddScoped<IReader<JournalRowDto, Guid>, JournalWriter>();
-        services.AddScoped<IReader<NomenclatureModel, Guid>, NomenclatureWriter>();
-
         services.AddSingleton( x => options );
         services.AddHostedService<BackgroungPushService>();
         
