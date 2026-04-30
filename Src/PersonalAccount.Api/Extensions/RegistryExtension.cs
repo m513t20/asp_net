@@ -1,9 +1,7 @@
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalAccount.Api.Logics;
 using PersonalAccount.Common.Core;
-using PersonalAccount.Domain.Models;
 using PersonalAccount.Domain.Models.Dto;
 
 namespace PersonalAccount.Api.Extensions;
@@ -30,13 +28,6 @@ public static class RegistryExtension
         services.AddScoped< IWorkScheduleReportService, WorkScheduleReportService>();
         services.AddScoped< IServerRepository<JournalRowDto> , JournalWriteRepository >();
         services.AddScoped< ILoadingService, LoadingService>();
-        
-        // Репозитории для записи данных в Postgres
-        services.AddScoped<IWriter<EmploeeModel, Guid>, EmploeeWriter>();
-        services.AddScoped<IWriter<CategoryModel, Guid>, CategoryWriter>();
-        services.AddScoped<IWriter<JournalRowDto, Guid>, JournalWriter>();
-        services.AddScoped<IWriter<NomenclatureModel, Guid>, NomenclatureWriter>();
-
         return services;
     }
 }
