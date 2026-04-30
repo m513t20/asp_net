@@ -42,13 +42,19 @@ var result = upgrader.PerformUpgrade();
 if (!result.Successful)
 {
     Log.Error( result.Error, "Ошибка при миграции данных!");
-    return;
+    //return;
 }
+
+var xmlFile= $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
 // Подключение сервисов
 builder.Services
         .RegistryPersonalAccountData( configuration )
-        .RegistryPersonalAccountApi (configuration );
+        .RegistryPersonalAccountApi (configuration )
+        .AddSwaggerGen(x=> {
+            x.IncludeXmlComments(xmlPath);
+        });
 
 // Настройки Web
 builder.Services.AddControllers();
@@ -59,6 +65,8 @@ var application = builder.Build();
 application.UseDeveloperExceptionPage();
 application.UseRouting();
 application.MapControllers();
+application.UseSwagger();
+application.UseSwaggerUI();
 
 // Запуск
 Log.Information("Приложение Personal Account запущено успешно!");
