@@ -1,12 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
 /// Модель категории номераклатуры.
 /// </summary>
-public class CategoryModel : DomainModel, IDto
+public class CategoryModel : DomainModel
 {
     /// <summary>
     /// Наименование категории.
