@@ -9,4 +9,4 @@
 
 Диаграмма
 
-![image](./_docs/Interfaces.png)
+[!image](./_docs/Interfaces.png)
