@@ -15,7 +15,14 @@ public class JournalReadRepository : IClientRepository<JournalRowDto>
 {
     // Шаблон SQL запроса
     private const string _sql = @"
-       select top {0}
+    select
+        tt.*,
+        t2.[description] as category_name,
+        t3.[description] as product_name,
+        t4.fullname as employee_name
+    from 
+    (    
+        select top  {0}
             -- Уникальный номер транзакции
             transnumber,
             -- Уникальный номер чека
@@ -26,17 +33,17 @@ public class JournalReadRepository : IClientRepository<JournalRowDto>
             dater,
             -- Код номенклатуры
             case when transtype = 101
-                then id 
+                then t1.id 
                 else 0 
             end as productid,
             -- Код сотрудника
-            case when transtype in (387, 386, 211, 216)
-                then id
+            case when transtype in (387, 386)
+                then t1.id
                 else 0
             end as emploeeid,
             -- Код категории
             case when transtype = 101
-                then categoryid
+                then t1.categoryid
                 else 0
             end as    categoryid ,
             -- Количество
@@ -45,10 +52,15 @@ public class JournalReadRepository : IClientRepository<JournalRowDto>
             price,
             -- Сумма скидки
             discountamount
-        from journal
+        from journal as t1
         where transtype in (387, 386, 211, 216, 101, 102)
         and transnumber > {1}
-        order by transnumber";
+    ) as tt 
+    left join category as t2 on t2.id = tt.categoryid
+    left join product as t3 on t3.productid = tt.productid
+    left join vw_Personnel as t4 on t4.personid = tt.emploeeid
+    order by transnumber ";
+
 
     /// <summary>
     /// Получить выборку данных из журнала транзакций.
@@ -60,15 +72,15 @@ public class JournalReadRepository : IClientRepository<JournalRowDto>
     {
         // Проверки
         ArgumentNullException.ThrowIfNull(connection);
-        var sql = string.Format(_sql, options.BatchSize, options.StartPosition);    
+        var sql = string.Format(_sql, options.BatchSize, options.StartPosition);
 
         try
         {
-            if(connection.State == System.Data.ConnectionState.Closed)
+            if (connection.State == System.Data.ConnectionState.Closed)
                 await connection.OpenAsync();
 
             // Выполняем выборку данных
-            var command = new SqlCommand (sql, (SqlConnection) connection);
+            var command = new SqlCommand(sql, (SqlConnection)connection);
             var dataset = new DataSet();
             var adapter = new SqlDataAdapter(command);
             adapter.Fill(dataset);
@@ -79,13 +91,13 @@ public class JournalReadRepository : IClientRepository<JournalRowDto>
 
             return result;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new InvalidDataException($"Невозможно выполнить SQL запрос {sql}\n{ex.Message}{ex.InnerException?.Message}");
         }
         finally
         {
             await connection.CloseAsync();
-        }   
+        }
     }
 }

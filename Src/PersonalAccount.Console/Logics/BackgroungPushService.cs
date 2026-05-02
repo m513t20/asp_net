@@ -1,4 +1,6 @@
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Hosting;
 using PersonalAccount.Common.Core;
@@ -65,7 +67,13 @@ public class BackgroungPushService : BackgroundService
                 // Загружаем пачку
                 using var connect = new SqlConnection(_options.ConnectionString);
                 var transactions = await _repo.GetRows(connect, settings);
-                await _client.PostAsJsonAsync(url, transactions);
+                if(transactions.Any())
+                    await _client.PostAsJsonAsync(url, transactions);
+                    else
+                {
+                    Log.Debug( string.Format("Для настройки: {0} нет данных.", JsonSerializer.Serialize( settings) ));
+                    Thread.Sleep( 500 );
+                }
             }
             catch (Exception ex)
             {
