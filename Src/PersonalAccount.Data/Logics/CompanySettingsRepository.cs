@@ -26,7 +26,7 @@ public class CompanySettingsRepository : ICompanySettingsRepository
     public LoadingSettingsModel? Load(BranchModel branch)
     {
         var item = _context.Branches.FirstOrDefault(x => x.Id == branch.Id)
-            ?? throw new InvalidDataException($"Не найдена организация по коду {branch.Id}!");
+            ?? throw new InvalidDataException($"Не найден филиал по коду {branch.Id}!");
 
         if(string.IsNullOrEmpty( item.LoadOptions))  return null;  
 

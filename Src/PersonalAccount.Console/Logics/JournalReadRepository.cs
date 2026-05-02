@@ -19,7 +19,7 @@ public class JournalReadRepository : IClientRepository<JournalRowDto>
         tt.*,
         t2.[description] as category_name,
         t3.[description] as product_name,
-        t4.fullname as employee_name
+        t4.fullname as emploee_name
     from 
     (    
         select top  {0}
