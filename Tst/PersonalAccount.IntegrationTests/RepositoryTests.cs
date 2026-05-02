@@ -75,7 +75,7 @@ public class RepositoryTests
     /// Проверить работу метода SaveRows репозиторий JournalRepository
     /// </summary>
     [Test]
-    public async Task SaveRows_JournalRepository_DoesNotThrow()
+    public void SaveRows_JournalRepository_DoesNotThrow()
     {
         // Подготовка
         var repo = _provider.GetRequiredService<IServerRepository<JournalRowDto>>();
@@ -89,7 +89,6 @@ public class RepositoryTests
                 CategoryCode = 1, 
                 CategoryName = "test", 
                 Code = 1 , 
-                CompanyId = 1, 
                 Discount = 0, 
                 EmploeeCode = 1 , 
                 EmploeeName = "test" , 
@@ -104,10 +103,16 @@ public class RepositoryTests
         var options = new LoadingSettingsModel()
         {
             StartPosition = 1,
-            BatchSize = 100,
-            Owner = new CompanyModel()
+            BatchSize = 1000,
+
+            // select * from branches
+            Branch = new BranchModel()
             {
-                Id = new Guid("14e54725-0efc-42b8-a27d-a84f9a7257c5")
+                Id = new Guid("655315b0-f7dd-463b-abeb-01ba3f770cac"),
+                Owner = new CompanyModel()
+                {
+                    Id = new Guid("14e54725-0efc-42b8-a27d-a84f9a7257c5")
+                }
             }
         };
 

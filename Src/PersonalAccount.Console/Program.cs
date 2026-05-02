@@ -22,13 +22,27 @@ var configuration = new ConfigurationBuilder()
                     .AddJsonFile("appsettings.json")
                     .Build();
 
-// Создали хост
-var host = Host.CreateDefaultBuilder()
-          .ConfigureServices ( (context, services) =>
-          {
-            services.RegistryPersonalAccountConsole( configuration );
-          });
+// Создаем хост
+try
+{
+    var host = Host.CreateDefaultBuilder()
+        .UseSerilog() 
+        .ConfigureServices((context, services) =>
+        {
+            services.RegistryPersonalAccountConsole(configuration);
+        })
+        .Build();
 
-await host.StartAsync();          
+    await host.RunAsync();
+}
+catch (Exception ex) 
+{
+    Log.Fatal(ex, $"Хост завершился с ошибкой!\n{ex.Message}{ex.InnerException?.Message}");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+   
 
           

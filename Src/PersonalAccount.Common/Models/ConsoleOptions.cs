@@ -18,11 +18,6 @@ public class ConsoleOptions
     public string ServerHost { get; set; } = null!;
 
     /// <summary>
-    /// Уникальный код организации
-    /// </summary>
-    public Guid CompanyId { get; set; }
-
-    /// <summary>
     /// Уникальный код подразделения
     /// </summary>
     public Guid BranchId { get; set; }

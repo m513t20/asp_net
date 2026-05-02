@@ -7,7 +7,7 @@ namespace PersonalAccount.Common.Core;
 /// <summary>
 /// Сервис загрузки данных из клиента.
 /// </summary>
-public interface ILoadingService
+public interface ILoadingFromClientService
 {
     /// <summary>
     /// Записать данные

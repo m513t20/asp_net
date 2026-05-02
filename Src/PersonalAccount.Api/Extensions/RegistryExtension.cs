@@ -27,7 +27,7 @@ public static class RegistryExtension
         services.AddScoped< ISalesReportService, SalesReportService>();
         services.AddScoped< IWorkScheduleReportService, WorkScheduleReportService>();
         services.AddScoped< IServerRepository<JournalRowDto> , JournalWriteRepository >();
-        services.AddScoped< ILoadingService, LoadingService>();
+        services.AddScoped< ILoadingFromClientService, LoadingFromClientService>();
         return services;
     }
 }

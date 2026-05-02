@@ -7,9 +7,9 @@ using PersonalAccount.Domain.Models.Dto;
 namespace PersonalAccount.Api.Logics;
 
 /// <summary>
-/// Реализация интерфейса <see cref="ILoadingService"/>
+/// Реализация интерфейса <see cref="ILoadingFromClientService"/>
 /// </summary>
-public class LoadingService : ILoadingService
+public class LoadingFromClientService : ILoadingFromClientService
 {
     // Репозиторий для работы с настройками загрузки данных
     private readonly  ICompanySettingsRepository _settingReposity;
@@ -20,7 +20,7 @@ public class LoadingService : ILoadingService
     // Контекст для работы с базой данных
     private readonly PersonalAccountContext _context;
     
-    public LoadingService( 
+    public LoadingFromClientService( 
             PersonalAccountContext context,
             ICompanySettingsRepository settingsRepository, 
             IServerRepository<JournalRowDto> writerRepository)
@@ -32,13 +32,13 @@ public class LoadingService : ILoadingService
        
        
     /// <InhericDoc/>
-    private bool Push(CompanyModel company, IEnumerable<JournalRowDto> transactions)
+    private bool Push(BranchModel branch, IEnumerable<JournalRowDto> transactions)
     {
         // 1 Получаем настройки
-        var settings = _settingReposity.Load( company) 
+        var settings = _settingReposity.Load( branch ) 
                         ?? new LoadingSettingsModel()
                         {
-                            Owner = company, StartPosition = 1, BatchSize = 1000
+                            Branch = branch, StartPosition = 1, BatchSize = 1000
                         };
 
         var firstTransaction = transactions.FirstOrDefault();
@@ -61,40 +61,41 @@ public class LoadingService : ILoadingService
     }
 
     /// <InhericDoc/>
-    public bool Push(Guid companyId, IEnumerable<JournalRowDto> transactions)
+    public bool Push(Guid branchId, IEnumerable<JournalRowDto> transactions)
     {
-        var company = _context.Companies.FirstOrDefault( x => x.Id == companyId) ?? throw new InvalidOperationException($"Невозможно получить карточку организации по коду {companyId}!");
-        return Push(new CompanyModel() { Id = companyId}, transactions);
+        var branch = _context.Branches.FirstOrDefault( x => x.Id == branchId) ?? throw new InvalidOperationException($"Невозможно получить карточку филиала по коду {branchId}!");
+        return Push(new BranchModel() { Id = branchId}, transactions);
     }
 
     /// <InhericDoc/>
-    public async Task<bool> PushAsync(Guid companyId, IEnumerable<JournalRowDto> transactions, CancellationToken token)
-        => await Task.Run( () => Push( companyId, transactions), token);
+    public async Task<bool> PushAsync(Guid branchId, IEnumerable<JournalRowDto> transactions, CancellationToken token)
+        => await Task.Run( () => Push( branchId, transactions), token);
 
     /// <InhericDoc/>
-    public LoadingSettingsModel GetSettings(Guid companyId)
+    public LoadingSettingsModel GetSettings(Guid branchId)
     {
-        var company = _context.Companies.FirstOrDefault( x => x.Id == companyId ) ?? throw new InvalidOperationException($"Невозможно получить карточку организации по коду {companyId}!");
+        var entity = _context.Branches.FirstOrDefault( x => x.Id ==  branchId) ?? throw new InvalidOperationException($"Невозможно получить карточку филиала по коду {branchId}!");
         
         // Конвертируем в модель
-        var companyModel = new CompanyModel()
+        var branch = new BranchModel()
         { 
-            Id = companyId, 
-            Name = company.Name ?? string.Empty,  
-            Address = company.Address ?? string.Empty,
-            INN = company.Inn ?? string.Empty
+            Id = branchId, 
+            Name = entity.Name ?? string.Empty,
+            Owner = new CompanyModel()
+            {
+                Id = entity.CompanyId
+            }
         };
 
-        var settings = _settingReposity.Load( companyModel ) ;
+        // Внимание! Для обновления настроек необходимо в базе данных выполнить SQL запрос
+        // update branches set load_options = null
+        // Тогда мы получим пустые настройки и заново их свормируем
+        var settings = _settingReposity.Load( branch ) ;
 
-         // Сформируем новый набор настроек и сохраним их.
         if (settings is null)
         {
-           
-            settings = new LoadingSettingsModel()
-                        {
-                            Owner = companyModel, StartPosition = 1, BatchSize = 1000
-                        };
+            // Сформируем новый набор настроек по умолчанию
+            settings = new LoadingSettingsModel()  {  Branch = branch, StartPosition = 1, BatchSize = 1000   };
             _settingReposity.Save( settings );            
         }
 

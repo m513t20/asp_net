@@ -8,10 +8,16 @@ namespace PersonalAccount.Domain.Models.Dto;
 public class JournalRowDto : IDto
 {
     /// <summary>
+    /// Уникальный код филиала
+    /// </summary>
+    [DataRow("branch_id")]
+    public Guid BranchId {get; set;}
+
+    /// <summary>
     /// Уникальный код организации
     /// </summary>
     [DataRow("company_id")]
-    public long CompanyId {get; set;}
+    public Guid CompanyId {get;set;}
 
     /// <summary>
     /// Уникальный код транзакции.

@@ -14,9 +14,9 @@ namespace PersonalAccount.Api.Controllers
     public class ConsoleController : ControllerBase
     {
         // Сервис загрузки данных
-        private readonly ILoadingService _loadingService;
+        private readonly ILoadingFromClientService _loadingService;
 
-        public ConsoleController(ILoadingService loadingService) => _loadingService = loadingService;
+        public ConsoleController(ILoadingFromClientService loadingService) => _loadingService = loadingService;
 
         /// <summary>
         /// Выполнить загрузку данных в raw таблицу из журнала.
@@ -42,24 +42,25 @@ namespace PersonalAccount.Api.Controllers
         } 
 
         // Пример запроса.
-        // http://0.0.0.0:8000/console/14e54725-0efc-42b8-a27d-a84f9a7257c5
+        // select * from branches
+        // http://0.0.0.0:8000/console/655315b0-f7dd-463b-abeb-01ba3f770cac
 
         /// <summary>
         /// Получить текущие настройки дяя указанной организации
         /// </summary>
-        /// <param name="companyId"> Уникальный код организации </param>
+        /// <param name="branchId"> Уникальный код филиала </param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("{companyId}")]
+        [HttpGet("{branchId}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoadingSettingsModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> GetSettings(
             [FromRoute]
-            Guid companyId,
+            Guid branchId,
              CancellationToken token
         )
         {
-            var result = await _loadingService.GetSettingsAsync(companyId, token);
+            var result = await _loadingService.GetSettingsAsync(branchId, token);
             if(result is not null) return Ok(result);
             else
                 return BadRequest();

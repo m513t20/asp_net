@@ -163,6 +163,15 @@ public class ApplicationTests
                 INN = "1234567890", 
                 Address = "90000, Ленинградская обл., Ломоносовский р-н, г. Ломоносов, ул. Советская, д. 12"
             },
+            Branch = new BranchModel()
+            {
+                Name = "test", Owner = new CompanyModel()
+                {
+                    Name = "test", 
+                INN = "1234567890", 
+                Address = "90000, Ленинградская обл., Ломоносовский р-н, г. Ломоносов, ул. Советская, д. 12" 
+                }
+            },
             Type = TransactionType.Sale,
             Quantuty = 1, Price = 1 , 
             Discount = 0, 
