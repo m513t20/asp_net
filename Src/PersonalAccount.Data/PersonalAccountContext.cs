@@ -218,7 +218,6 @@ public partial class PersonalAccountContext : DbContext
                 .HasPrecision(15, 2)
                 .HasColumnName("quantity");
             entity.Property(e => e.TransactionType).HasColumnName("transaction_type");
-
             entity.HasOne(d => d.Emloee).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.EmloeeId)
                 .HasConstraintName("transactions_emloee_id_fk");
