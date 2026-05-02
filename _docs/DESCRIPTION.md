@@ -68,5 +68,22 @@ select  count(*)
 select count(*) from journal
 ```
 
+### Инфраструктура
+1. Контейнер MSSQL сервер - https://disk.yandex.ru/d/HlgVVYyTWy8r7A
+2. Базы данных для MSSQL с загруженными данными - https://disk.yandex.ru/d/gJzBN5WWXK9WkA
+
+Порядок выполнения команда:
+```bash
+sudo docker compose down
+sudo docker images 
+# Находим образ mssql - mcr.microsoft.com/mssql/server:2017-latest  и удаляем его
+sudo docker rmi [Имя образа] -f
+# Загружаем образ к себе (распакуйте его в tar)
+sudo docker load -i [Имя файла]
+sudo docker compose up -d
+```
+
+3. Дамп базы данных Postgre - https://disk.yandex.ru/d/gJzBN5WWXK9WkA
+с загруженным журналом 
 
 
