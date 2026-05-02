@@ -83,7 +83,6 @@ sudo docker load -i [Имя файла]
 sudo docker compose up -d
 ```
 
-3. Дамп базы данных Postgre - https://disk.yandex.ru/d/gJzBN5WWXK9WkA
-с загруженным журналом 
+3. [Дамп базы данных Postgre](./../_Infra/backup/personal_account.dump)
 
 
