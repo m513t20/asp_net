@@ -9,28 +9,21 @@ namespace PersonalAccount.Api.Logics;
 /// <summary>
 /// Реализация интерфейса <see cref="ILoadingFromClientService"/>
 /// </summary>
-public class LoadingFromClientService : ILoadingFromClientService
+public class LoadingFromClientService(
+        PersonalAccountContext context,
+        ICompanySettingsRepository settingsRepository,
+        IServerRepository<JournalRowDto> writerRepository) : ILoadingFromClientService
 {
     // Репозиторий для работы с настройками загрузки данных
-    private readonly  ICompanySettingsRepository _settingReposity;
+    private readonly  ICompanySettingsRepository _settingReposity = settingsRepository;
 
     // Репозиторий для скоростной записи данных в журнал
-    private readonly IServerRepository<JournalRowDto> _writerRepository;
+    private readonly IServerRepository<JournalRowDto> _writerRepository = writerRepository;
 
     // Контекст для работы с базой данных
-    private readonly PersonalAccountContext _context;
-    
-    public LoadingFromClientService( 
-            PersonalAccountContext context,
-            ICompanySettingsRepository settingsRepository, 
-            IServerRepository<JournalRowDto> writerRepository)
-    {
-        _context = context;
-        _settingReposity = settingsRepository;
-        _writerRepository = writerRepository;
-    }        
-       
-       
+    private readonly PersonalAccountContext _context = context;
+
+
     /// <InhericDoc/>
     private bool Push(BranchModel branch, IEnumerable<JournalRowDto> transactions)
     {

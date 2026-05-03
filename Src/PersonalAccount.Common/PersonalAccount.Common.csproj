@@ -10,4 +10,8 @@
     <ProjectReference Include="../PersonalAccount.Domain/PersonalAccount.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logics/" />
+  </ItemGroup>
+
 </Project>
