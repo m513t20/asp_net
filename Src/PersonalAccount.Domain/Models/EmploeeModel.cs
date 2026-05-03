@@ -16,6 +16,11 @@ public class EmploeeModel : DomainModel
     public string Name {get;set;} = string.Empty;
 
     /// <summary>
+    /// Внешний ключ.
+    /// </summary>
+    public long? ExternalCode { get; set; }
+
+    /// <summary>
     /// Контактный телефон.
     /// </summary>
     [Template(@"^\+7\d{10}$")]

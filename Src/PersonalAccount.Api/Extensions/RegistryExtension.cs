@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalAccount.Api.Logics;
 using PersonalAccount.Common.Core;
+using PersonalAccount.Domain.Models;
 using PersonalAccount.Domain.Models.Dto;
 
 namespace PersonalAccount.Api.Extensions;
@@ -23,12 +24,14 @@ public static class RegistryExtension
         IConfiguration configuration
     )
     {
-        services.AddScoped< IRevenueReportService, RevenueReportService>();
-        services.AddScoped< ISalesReportService, SalesReportService>();
-        services.AddScoped< IWorkScheduleReportService, WorkScheduleReportService>();
-        services.AddScoped< IServerRepository<JournalRowDto> , JournalWriteRepository >();
-        services.AddScoped< ILoadingFromClientService, LoadingFromClientService>();
-        services.AddScoped< ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IRevenueReportService, RevenueReportService>();
+        services.AddScoped<ISalesReportService, SalesReportService>();
+        services.AddScoped<IWorkScheduleReportService, WorkScheduleReportService>();
+        services.AddScoped<IServerRepository<JournalRowDto>, JournalWriteRepository>();
+        services.AddScoped<ILoadingFromClientService, LoadingFromClientService>();
+        services.AddScoped<IBufferedRepository<JournalRowDto, CategoryModel>, CategoryRepository>();
+        services.AddScoped<IBufferedRepository<JournalRowDto, EmploeeModel>, EmploeeRepository>();
+        services.AddScoped<IBufferedRepository<JournalRowDto, NomenclatureModel>, NomenclatureRepository>();
         return services;
     }
 }

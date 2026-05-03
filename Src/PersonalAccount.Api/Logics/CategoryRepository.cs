@@ -9,11 +9,18 @@ using Serilog;
 namespace PersonalAccount.Api.Logics;
 
 /// <summary>
-/// Реализация интерфейса <see cref="ICategoryRepository"/>
+/// Репозиторий для работы с категориями.
 /// </summary>
-public class CategoryRepository(PersonalAccountContext context) : Buffer<CategoryModel>, ICategoryRepository
+public class CategoryRepository(PersonalAccountContext context) : Buffer<CategoryModel>,
+                IBufferedRepository<JournalRowDto, CategoryModel>, IDisposable
 {
     private readonly PersonalAccountContext _context = context;
+
+    /// <inheritdoc/>
+    public void Dispose()
+    {
+        _buffer.Clear();
+    }
 
     /// <InheritDoc/>
     public IEnumerable<CategoryModel> GetRows(IEnumerable<JournalRowDto> transactions, LoadingSettingsModel options)
@@ -27,8 +34,9 @@ public class CategoryRepository(PersonalAccountContext context) : Buffer<Categor
         if (!batchItems.Any()) return Enumerable.Empty<CategoryModel>();
 
         // Список существующих категорий
+        var categoryCodes = batchItems.Select(x => x.CategoryCode).ToList();
         var entities = _context.Categories
-                        .Where(x => batchItems.Any(y => y.CategoryCode == x.ExternalCode))
+                        .Where(x => categoryCodes.Contains(x.ExternalCode))
                         .Select(x => new CategoryModel()
                         {
                             Id = x.Id,
@@ -66,20 +74,28 @@ public class CategoryRepository(PersonalAccountContext context) : Buffer<Categor
         => await Task.Run( () => GetRows( transactions, options), token);
 
     /// <InheritDoc/>
-    public bool Save(IEnumerable<CategoryModel> categories)
+    public bool Save(IEnumerable<CategoryModel> items, LoadingSettingsModel options)
     {
-        if(!categories.Any()) return false;
+        if(!items.Any()) return false;
         try
         {
-            var items = categories.Select(x => new Category()
-            {
-                Name = x.Name,
-                ExternalCode = x.ExternalCode,
-                CompanyId = x.Owner.Id
-            });
+            // Получаем новые записи
+            var newest = items
+                .Where(x => x.Id == Guid.Empty)
+                .Select(x => new Category()
+                {
+                    Name = x.Name,
+                    ExternalCode = x.ExternalCode,
+                    CompanyId = x.Owner.Id
+                });
 
-            _context.AddRange( items );
+            // Записываем
+            _context.AddRange( newest );
             _context.SaveChanges();
+
+            // Добавляем в буфер
+            var key = new BufferKey( options, typeof(CategoryModel));
+            Save( key, items );
 
             return true;
         }
@@ -91,6 +107,6 @@ public class CategoryRepository(PersonalAccountContext context) : Buffer<Categor
     }
 
     /// <InheritDoc/>
-    public async Task<bool> SaveAsync(IEnumerable<CategoryModel> categories, CancellationToken token)
-        => await Task.Run( () => Save( categories), token);
+    public async Task<bool> SaveAsync(IEnumerable<CategoryModel> items, LoadingSettingsModel options, CancellationToken token)
+        => await Task.Run( () => Save( items, options ), token);
 }

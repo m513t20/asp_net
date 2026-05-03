@@ -128,7 +128,7 @@ public class RepositoryTests
     public void GetRows_CategoryRepository_DoesNotThrow()
     {
         // Подготовка
-        var repo = _provider.GetRequiredService< ICategoryRepository >();
+        var repo = _provider.GetRequiredService< IBufferedRepository<JournalRowDto, CategoryModel> >();
         var transactions = new List<JournalRowDto>()
         {
             new JournalRowDto()
@@ -154,6 +154,42 @@ public class RepositoryTests
             var result = repo.GetRows( transactions, options);
             Assert.That( result.Any() );
             Assert.That( result.Count() == 1);
+        });
+    }
+
+    /// <summary>
+    /// Проверить работу метода Save репозитория CategoryRepository
+    /// </summary>
+    [Test]
+    public void Save_CategoryRepository_DoesNotThrow()
+    {
+        // Подготовка
+        var repo = _provider.GetRequiredService< IBufferedRepository<JournalRowDto, CategoryModel> >();
+        var transactions = new List<JournalRowDto>()
+        {
+            new JournalRowDto()
+            {
+                CategoryCode = 1, CategoryName = "test1"
+            }
+        };
+        var options = new LoadingSettingsModel()
+        {
+            Branch = new BranchModel()
+            {
+                Id = new Guid("655315b0-f7dd-463b-abeb-01ba3f770cac"),
+                Owner = new CompanyModel()
+                {
+                    Id = new Guid("14e54725-0efc-42b8-a27d-a84f9a7257c5")
+                }
+            }
+        };
+        var categories = repo.GetRows( transactions, options);
+
+        // Действие и проверка
+        Assert.DoesNotThrow( () =>
+        {
+            Assert.That(categories.Any());
+            repo.Save( categories, options );
         });
     }
 }

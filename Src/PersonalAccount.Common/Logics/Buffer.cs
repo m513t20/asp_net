@@ -11,7 +11,7 @@ namespace PersonalAccount.Common.Logics;
 /// <typeparam name="T"> Связанный доменный тип данных. </typeparam>
 public class Buffer<T> : IBuffer<T> where T : DomainModel
 {
-    private readonly ConcurrentDictionary<BufferKey, IEnumerable<T>> _buffer = new ConcurrentDictionary<BufferKey, IEnumerable<T>>();
+    protected readonly ConcurrentDictionary<BufferKey, IEnumerable<T>> _buffer = new ConcurrentDictionary<BufferKey, IEnumerable<T>>();
 
     /// <summary>
     /// Получить значение из буфера

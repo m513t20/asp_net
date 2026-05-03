@@ -10,6 +10,10 @@ namespace PersonalAccount.Common.Core;
 /// <param name="type"> Связанный тип данных </param>
 public record BufferKey(LoadingSettingsModel settings, Type type);
 
+/// <summary>
+/// Интерфейс для работы с буфером данных.
+/// </summary>
+/// <typeparam name="T"> Доменная модель. </typeparam>
 public interface IBuffer<T> where T : DomainModel
 {
     /// <summary>
