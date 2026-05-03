@@ -15,6 +15,11 @@ public class CategoryModel : DomainModel
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    /// Уникальный внешний код.
+    /// </summary>
+    public long? ExternalCode { get; set;}
+
+    /// <summary>
     /// Организация владелец категории.
     /// </summary>
     [Required]

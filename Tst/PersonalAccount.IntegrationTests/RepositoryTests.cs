@@ -119,4 +119,41 @@ public class RepositoryTests
         // Действие и проверка
         Assert.DoesNotThrowAsync(async () => await repo.SaveRows(connect, transactions, options));
     }
+
+
+    /// <summary>
+    /// Проверить работу метода GetRows репозиторий CategoryRepository
+    /// </summary>
+    [Test]
+    public void GetRows_CategoryRepository_DoesNotThrow()
+    {
+        // Подготовка
+        var repo = _provider.GetRequiredService< ICategoryRepository >();
+        var transactions = new List<JournalRowDto>()
+        {
+            new JournalRowDto()
+            {
+                CategoryCode = 1, CategoryName = "test"
+            }
+        };
+        var options = new LoadingSettingsModel()
+        {
+            Branch = new BranchModel()
+            {
+                Id = new Guid("655315b0-f7dd-463b-abeb-01ba3f770cac"),
+                Owner = new CompanyModel()
+                {
+                    Id = new Guid("14e54725-0efc-42b8-a27d-a84f9a7257c5")
+                }
+            }
+        };
+
+        // Действия и проверка
+        Assert.DoesNotThrow( () =>
+        {
+            var result = repo.GetRows( transactions, options);
+            Assert.That( result.Any() );
+            Assert.That( result.Count() == 1);
+        });
+    }
 }

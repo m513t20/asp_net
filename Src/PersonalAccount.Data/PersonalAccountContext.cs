@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PersonalAccount.Data.Models;
 
 namespace PersonalAccount.Data;
@@ -65,10 +63,13 @@ public partial class PersonalAccountContext : DbContext
 
             entity.ToTable("categories");
 
+            entity.HasIndex(e => e.ExternalCode, "categories_external_code_ix");
+
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            entity.Property(e => e.ExternalCode).HasColumnName("external_code");
             entity.Property(e => e.Name).HasColumnName("name");
 
             entity.HasOne(d => d.Company).WithMany(p => p.Categories)
@@ -101,10 +102,13 @@ public partial class PersonalAccountContext : DbContext
 
             entity.ToTable("emploees");
 
+            entity.HasIndex(e => e.ExternalCode, "emploees_external_code_ix");
+
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            entity.Property(e => e.ExternalCode).HasColumnName("external_code");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Phone).HasColumnName("phone");
 
@@ -169,10 +173,13 @@ public partial class PersonalAccountContext : DbContext
 
             entity.ToTable("nomenclatures");
 
+            entity.HasIndex(e => e.ExternalCode, "nomenclatures_external_code_ix");
+
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.Property(e => e.ExternalCode).HasColumnName("external_code");
             entity.Property(e => e.Name).HasColumnName("name");
 
             entity.HasOne(d => d.Category).WithMany(p => p.Nomenclatures)
@@ -218,6 +225,7 @@ public partial class PersonalAccountContext : DbContext
                 .HasPrecision(15, 2)
                 .HasColumnName("quantity");
             entity.Property(e => e.TransactionType).HasColumnName("transaction_type");
+
             entity.HasOne(d => d.Emloee).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.EmloeeId)
                 .HasConstraintName("transactions_emloee_id_fk");

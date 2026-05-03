@@ -17,7 +17,7 @@ public interface ICategoryRepository : IHandler<JournalRowDto>, IBuffer<Category
     /// <param name="transactions"> Транзакции </param>
     /// <param name="options"> Настройки </param>
     /// <returns></returns>
-    public IEnumerable<CategoryModel>  GetFreshRows(IEnumerable<JournalRowDto> transactions, LoadingSettingsModel options);
+    public IEnumerable<CategoryModel>  GetRows(IEnumerable<JournalRowDto> transactions, LoadingSettingsModel options);
 
     /// <summary>
     /// Ассинхронный вариант получения списка новых категорий.
@@ -26,7 +26,7 @@ public interface ICategoryRepository : IHandler<JournalRowDto>, IBuffer<Category
     /// <param name="options"> Настройки. </param>
     /// <param name="token"> Токен отмены. </param>
     /// <returns></returns>
-    public Task<IEnumerable<CategoryModel>> GetFreshRowsAsync(IEnumerable<JournalRowDto> transactions, LoadingSettingsModel options, CancellationToken token);
+    public Task<IEnumerable<CategoryModel>> GetRowsAsync(IEnumerable<JournalRowDto> transactions, LoadingSettingsModel options, CancellationToken token);
 
     /// <summary>
     /// Сохранить записи в базе данных и заполнить буфер.
