@@ -102,12 +102,13 @@ public class WorkScheduleReportService : IWorkScheduleReportService
                 .GroupBy(x => new { x.CompanyId, x.EmploeeName })
                 .Select(g => g.First());
     }
-            
+
 
     /// <summary>
     /// Реализация ассинхронного варианта
     /// </summary>
     /// <param name="transactions"> Набор транзакций. </param>
+    /// <param name="token"></param>
     /// <returns></returns>
     public async Task<IEnumerable<WorkScheduleDto>> CreateAsync(IEnumerable<TransactionModel> transactions, CancellationToken token)
          => await Task.Run( () => Create( transactions), token);

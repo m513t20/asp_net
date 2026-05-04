@@ -37,9 +37,9 @@ public class EmploeeRepository(PersonalAccountContext context) : Buffer<EmploeeM
         if (!batchItems.Any()) return Enumerable.Empty<EmploeeModel>();
 
         // Список существующих сотрудников
-        var categoryCodes = batchItems.Select(x => x.EmploeeCode).ToList();
+        var externalCodes = batchItems.Select(x => x.EmploeeCode).ToList();
         var entities = _context.Emploees
-                        .Where(x => categoryCodes.Contains(x.ExternalCode))
+                        .Where(x => externalCodes.Contains(x.ExternalCode))
                         .Select(x => new EmploeeModel()
                         {
                             Id = x.Id,

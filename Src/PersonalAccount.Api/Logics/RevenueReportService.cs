@@ -122,6 +122,7 @@ public class RevenueReportService : IRevenueReportService
     /// Реализация ассинхронного варианта
     /// </summary>
     /// <param name="transactions"> Набор транзакций. </param>
+    /// <param name="token"></param>
     /// <returns></returns>
     public async Task<IEnumerable<RevenueDto>> CreateAsync(IEnumerable<TransactionModel> transactions, CancellationToken token)
         => await Task.Run( () => Create( transactions), token);

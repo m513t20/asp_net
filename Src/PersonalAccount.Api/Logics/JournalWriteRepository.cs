@@ -9,7 +9,7 @@ using NpgsqlTypes;
 namespace PersonalAccount.Api.Logics;
 
 /// <summary>
-/// Реализация интерфейса <see cref="IServerRepository<T>>"/>
+/// Реализация интерфейса IServerRepository
 /// </summary>
 public class JournalWriteRepository : IServerRepository<JournalRowDto>
 {
@@ -107,9 +107,9 @@ public class JournalWriteRepository : IServerRepository<JournalRowDto>
                 // discountamount
                 writer.Write(transaction.Discount, NpgsqlDbType.Double);
                 // company_id
-                writer.Write(options.Branch.Owner.Id, NpgsqlDbType.Uuid);
+                writer.Write(options.Branch!.Owner.Id, NpgsqlDbType.Uuid);
                 // branch_id
-                writer.Write(options.Branch.Id, NpgsqlDbType.Uuid);
+                writer.Write(options.Branch!.Id, NpgsqlDbType.Uuid);
             }
 
             writer.Complete();

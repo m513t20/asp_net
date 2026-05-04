@@ -34,9 +34,9 @@ public class CategoryRepository(PersonalAccountContext context) : Buffer<Categor
         if (!batchItems.Any()) return Enumerable.Empty<CategoryModel>();
 
         // Список существующих категорий
-        var categoryCodes = batchItems.Select(x => x.CategoryCode).ToList();
+        var externalCodes = batchItems.Select(x => x.CategoryCode).ToList();
         var entities = _context.Categories
-                        .Where(x => categoryCodes.Contains(x.ExternalCode))
+                        .Where(x => externalCodes.Contains(x.ExternalCode))
                         .Select(x => new CategoryModel()
                         {
                             Id = x.Id,

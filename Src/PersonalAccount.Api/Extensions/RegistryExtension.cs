@@ -24,14 +24,19 @@ public static class RegistryExtension
         IConfiguration configuration
     )
     {
+        // Отчеты
         services.AddScoped<IRevenueReportService, RevenueReportService>();
         services.AddScoped<ISalesReportService, SalesReportService>();
         services.AddScoped<IWorkScheduleReportService, WorkScheduleReportService>();
+        // Репозиторий для записи "плоских" данных
         services.AddScoped<IServerRepository<JournalRowDto>, JournalWriteRepository>();
+        // Сервис для приема и обработки данных
         services.AddScoped<ILoadingFromClientService, LoadingFromClientService>();
+        // Репозиториий для обработки данных
         services.AddScoped<IBufferedRepository<JournalRowDto, CategoryModel>, CategoryRepository>();
         services.AddScoped<IBufferedRepository<JournalRowDto, EmploeeModel>, EmploeeRepository>();
         services.AddScoped<IBufferedRepository<JournalRowDto, NomenclatureModel>, NomenclatureRepository>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
         return services;
     }
 }

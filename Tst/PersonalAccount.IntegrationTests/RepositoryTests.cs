@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -53,6 +54,7 @@ public class RepositoryTests
     [TestCase(100)]
     [TestCase(1000)]
     [TestCase(10000)]
+    [Order(1)]
     public async Task GetRows_JournalRepository_Any(int rows)
     {
         // Подготовка
@@ -75,6 +77,7 @@ public class RepositoryTests
     /// Проверить работу метода SaveRows репозиторий JournalRepository
     /// </summary>
     [Test]
+    [Order(2)]
     public void SaveRows_JournalRepository_DoesNotThrow()
     {
         // Подготовка
@@ -85,18 +88,18 @@ public class RepositoryTests
         {
             new JournalRowDto()
             {
-                TypeCode = 101, 
-                CategoryCode = 1, 
-                CategoryName = "test", 
-                Code = 1 , 
-                Discount = 0, 
-                EmploeeCode = 1 , 
-                EmploeeName = "test" , 
-                Period = DateTime.UtcNow, 
-                Price = 1, 
-                ProductCode = 1 , 
-                ProductName = "test", 
-                Quantity = 1, 
+                TypeCode = 101,
+                CategoryCode = 1,
+                CategoryName = "test",
+                Code = 1 ,
+                Discount = 0,
+                EmploeeCode = 1 ,
+                EmploeeName = "test" ,
+                Period = DateTime.UtcNow,
+                Price = 1,
+                ProductCode = 1 ,
+                ProductName = "test",
+                Quantity = 1,
                 ReceiptNumber = 1
             }
         };
@@ -125,10 +128,11 @@ public class RepositoryTests
     /// Проверить работу метода GetRows репозиторий CategoryRepository
     /// </summary>
     [Test]
+    [Order(3)]
     public void GetRows_CategoryRepository_DoesNotThrow()
     {
         // Подготовка
-        var repo = _provider.GetRequiredService< IBufferedRepository<JournalRowDto, CategoryModel> >();
+        var repo = _provider.GetRequiredService<IBufferedRepository<JournalRowDto, CategoryModel>>();
         var transactions = new List<JournalRowDto>()
         {
             new JournalRowDto()
@@ -149,11 +153,11 @@ public class RepositoryTests
         };
 
         // Действия и проверка
-        Assert.DoesNotThrow( () =>
+        Assert.DoesNotThrow(() =>
         {
-            var result = repo.GetRows( transactions, options);
-            Assert.That( result.Any() );
-            Assert.That( result.Count() == 1);
+            var result = repo.GetRows(transactions, options);
+            Assert.That(result.Any());
+            Assert.That(result.Count() == 1);
         });
     }
 
@@ -161,10 +165,11 @@ public class RepositoryTests
     /// Проверить работу метода Save репозитория CategoryRepository
     /// </summary>
     [Test]
+    [Order(4)]
     public void Save_CategoryRepository_DoesNotThrow()
     {
         // Подготовка
-        var repo = _provider.GetRequiredService< IBufferedRepository<JournalRowDto, CategoryModel> >();
+        var repo = _provider.GetRequiredService<IBufferedRepository<JournalRowDto, CategoryModel>>();
         var transactions = new List<JournalRowDto>()
         {
             new JournalRowDto()
@@ -183,13 +188,98 @@ public class RepositoryTests
                 }
             }
         };
-        var categories = repo.GetRows( transactions, options);
+        var categories = repo.GetRows(transactions, options);
 
         // Действие и проверка
-        Assert.DoesNotThrow( () =>
+        Assert.DoesNotThrow(() =>
         {
             Assert.That(categories.Any());
-            repo.Save( categories, options );
+            repo.Save(categories, options);
         });
+    }
+
+
+    /// <summary>
+    /// Проверить работу метода GetRows репозитория NomenclatureRepository
+    /// </summary>
+    [Test]
+    [Order(5)]
+    public void GetRows_NomenclatureRepository_DoesNotThrow()
+    {
+        // Подготовка
+        var repo = _provider.GetRequiredService<IBufferedRepository<JournalRowDto, NomenclatureModel>>();
+        var options = new LoadingSettingsModel()
+        {
+            Branch = new BranchModel()
+            {
+                Id = new Guid("655315b0-f7dd-463b-abeb-01ba3f770cac"),
+                Owner = new CompanyModel()
+                {
+                    Id = new Guid("14e54725-0efc-42b8-a27d-a84f9a7257c5")
+                }
+            }
+        };
+        var transactions = new List<JournalRowDto>()
+        {
+            new JournalRowDto()
+            {
+                CategoryCode = 1, CategoryName = "test", ProductCode = 1, ProductName = "Test"
+            }
+        };
+
+        // Действия и проверка
+        Assert.DoesNotThrow(() =>
+        {
+            var result = repo.GetRows(transactions, options);
+            Assert.That(result.Any());
+            Assert.That(result.Count() == 1);
+        });
+    }
+
+
+    /// <summary>
+    /// Проверить работу метода Push репозитория TransactionRepository
+    /// </summary>
+    [Test]
+    [Order(6)]
+    public void Push_TransactionRepository_True()
+    {
+        var repo = _provider.GetRequiredService<ITransactionRepository>();
+        var options = new LoadingSettingsModel()
+        {
+            Branch = new BranchModel()
+            {
+                Id = new Guid("655315b0-f7dd-463b-abeb-01ba3f770cac"),
+                Owner = new CompanyModel()
+                {
+                    Id = new Guid("14e54725-0efc-42b8-a27d-a84f9a7257c5")
+                }
+            }
+        };
+        var transactions = new List<JournalRowDto>()
+        {
+            new JournalRowDto()
+            {
+                CategoryCode = 1,
+                CategoryName = "Test",
+                ProductCode = 1,
+                ProductName = "Test",
+                EmploeeCode = 1,
+                EmploeeName = "Test",
+                Discount = 0,
+                Price = 1 ,
+                Quantity = 1,
+                Period = DateTime.Now,
+                Code = 1,
+                ReceiptNumber = 1,
+                TypeCode = 101
+            }
+        };
+
+        // Действие
+        var result = repo.Push(transactions, options);
+
+        // Проверка
+        Assert.That(result == true);
     }
 }

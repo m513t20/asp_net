@@ -41,6 +41,7 @@ public class SalesReportService : ISalesReportService
     /// Реализация ассинхронного варианта
     /// </summary>
     /// <param name="transactions"> Набор транзакций. </param>
+    /// <param name="token"></param>
     /// <returns></returns>
     public async Task<IEnumerable<SellingDto>> CreateAsync(IEnumerable<TransactionModel> transactions, CancellationToken token)
         => await Task.Run( () => Create( transactions), token);

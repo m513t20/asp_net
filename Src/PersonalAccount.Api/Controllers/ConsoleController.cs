@@ -16,6 +16,10 @@ namespace PersonalAccount.Api.Controllers
         // Сервис загрузки данных
         private readonly ILoadingFromClientService _loadingService;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loadingService"></param>
         public ConsoleController(ILoadingFromClientService loadingService) => _loadingService = loadingService;
 
         /// <summary>
@@ -23,23 +27,24 @@ namespace PersonalAccount.Api.Controllers
         /// </summary>
         /// <param name="companyId"> Уникальный код организации </param>
         /// <param name="transactions"> Список транзакций </param>
+        /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("{companyId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Push(
             [FromRoute]
-            Guid companyId, 
+            Guid companyId,
             [FromBody]
             IEnumerable<JournalRowDto> transactions,
             CancellationToken token
         )
         {
-            var result = await _loadingService.PushAsync( companyId, transactions, token);
-            if(result) return Ok();
+            var result = await _loadingService.PushAsync(companyId, transactions, token);
+            if (result) return Ok();
             else
                 return BadRequest();
-        } 
+        }
 
         // Пример запроса.
         // select * from branches
@@ -61,7 +66,7 @@ namespace PersonalAccount.Api.Controllers
         )
         {
             var result = await _loadingService.GetSettingsAsync(branchId, token);
-            if(result is not null) return Ok(result);
+            if (result is not null) return Ok(result);
             else
                 return BadRequest();
         }
