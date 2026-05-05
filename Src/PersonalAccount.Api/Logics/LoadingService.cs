@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalAccount.Common.Core;
 using PersonalAccount.Data;
+using PersonalAccount.Data.Models;
 using PersonalAccount.Domain.Models;
 using PersonalAccount.Domain.Models.Dto;
 

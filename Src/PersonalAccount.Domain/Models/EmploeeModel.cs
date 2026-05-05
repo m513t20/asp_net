@@ -26,5 +26,10 @@ public class EmploeeModel : DomainModel
     /// </summary>
     [Required]
     public CompanyModel Owner {get;set;} = null!;
- 
+
+    /// <summary>
+    /// Кот категории из таблицы MsSql.
+    /// </summary>
+    [Required]
+    public long Code {get;set;}
 }

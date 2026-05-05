@@ -11,6 +11,8 @@ public partial class Category
 
     public Guid? CompanyId { get; set; }
 
+    public long? Code { get; set; }
+
     public virtual Company? Company { get; set; }
 
     public virtual ICollection<Nomenclature> Nomenclatures { get; set; } = new List<Nomenclature>();
