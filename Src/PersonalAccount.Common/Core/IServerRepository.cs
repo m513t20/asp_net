@@ -17,5 +17,5 @@ public interface IServerRepository<T>: IHandler<T> where T: IDto
     /// <param name="transactions"> Набор полученных транзакций. </param>
     /// <param name="options"> Набор настроек. </param>
     /// <returns> Обновленный вариант настроек. </returns>
-    public Task<LoadingSettingsModel?> SaveRows(DbConnection connection, IEnumerable<T> transactions,  LoadingSettingsModel options);
+    public Task<LoadingSettingsModel?> SaveRowsAsync(DbConnection connection, IEnumerable<T> transactions,  LoadingSettingsModel options);
 }

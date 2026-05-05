@@ -34,7 +34,7 @@ public partial class PersonalAccountContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Branch>(entity =>
         {
@@ -208,6 +208,8 @@ public partial class PersonalAccountContext : DbContext
 
             entity.ToTable("transactions");
 
+            entity.HasIndex(e => e.ExternalCode, "transactions_external_code_ix");
+
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("id");
@@ -217,6 +219,7 @@ public partial class PersonalAccountContext : DbContext
                 .HasPrecision(15, 2)
                 .HasColumnName("discount");
             entity.Property(e => e.EmloeeId).HasColumnName("emloee_id");
+            entity.Property(e => e.ExternalCode).HasColumnName("external_code");
             entity.Property(e => e.NomenclatureId).HasColumnName("nomenclature_id");
             entity.Property(e => e.Price)
                 .HasPrecision(15, 2)

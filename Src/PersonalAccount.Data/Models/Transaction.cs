@@ -23,6 +23,8 @@ public partial class Transaction
 
     public Guid BranchId { get; set; }
 
+    public long? ExternalCode { get; set; }
+
     public virtual Emploee? Emloee { get; set; }
 
     public virtual Nomenclature? Nomenclature { get; set; }

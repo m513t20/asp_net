@@ -86,3 +86,31 @@ sudo docker compose up -d
 3. [Дамп базы данных Postgre](./../_Infra/backup/personal_account.dump)
 
 
+### Очистка данных
+```sql
+truncate table journal;
+delete from transactions;
+delete from nomenclatures;
+delete from categories;
+delete from emploees;
+update branches set load_options = null;
+```
+
+
+### Результат загрузки и обработки данных
+1. Загрузка только в "плоский" журнал: **24 секунды**
+2. Загрузка с обработкой данных: **1 минута 11 секунд**
+
+Лог:
+```
+2026-05-05 04:27:00.634 +03:00 [INF] Фоновый сервис загрузки данных запущен.
+2026-05-05 04:27:00.672 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-05 04:27:00.674 +03:00 [INF] Hosting environment: Production
+2026-05-05 04:27:00.674 +03:00 [INF] Content root path: /home/valex/Projects/IGU/PersonalAccount2026/Src/PersonalAccount.Console/bin/Debug/net8.0
+2026-05-05 04:28:11.989 +03:00 [INF] Для настройки: {"Branch":{"Name":"TEST","Owner":{"Name":"","INN":"","Address":"","Id":"14e54725-0efc-42b8-a27d-a84f9a7257c5"},"Id":"655315b0-f7dd-463b-abeb-01ba3f770cac"},"Description":"","StartPosition":1951182,"BatchSize":1000,"Id":"00000000-0000-0000-0000-000000000000"} нет данных.
+```
+
+Высвобождение памяти:
+![](./6.png)
+
+

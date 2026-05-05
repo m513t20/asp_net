@@ -35,7 +35,7 @@ public class JournalWriteRepository : IServerRepository<JournalRowDto>
         FROM STDIN (FORMAT BINARY)";
 
     /// <inheritdoc/>
-    public async Task<LoadingSettingsModel?> SaveRows(DbConnection connection, IEnumerable<JournalRowDto> transactions, LoadingSettingsModel options)
+    public async Task<LoadingSettingsModel?> SaveRowsAsync(DbConnection connection, IEnumerable<JournalRowDto> transactions, LoadingSettingsModel options)
     {
         ArgumentNullException.ThrowIfNull(connection);
         if (options.Branch?.Id == Guid.Empty)

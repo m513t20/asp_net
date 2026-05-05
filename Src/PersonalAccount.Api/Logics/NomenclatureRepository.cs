@@ -28,6 +28,7 @@ public class NomenclatureRepository(PersonalAccountContext context) : Buffer<Nom
     {
         // Список номенклатуры в пачке
         var batchItems = transactions
+                        .Where(x => x.ProductCode > 0 && x.CategoryCode > 0)
                         .GroupBy(x => new { x.ProductCode, x.ProductName, x.CategoryCode })
                         .Select(x => new { x.Key.ProductCode, x.Key.ProductName, x.Key.CategoryCode })
                         .ToList();
@@ -39,7 +40,7 @@ public class NomenclatureRepository(PersonalAccountContext context) : Buffer<Nom
         var categoryCodes = batchItems.Select(x => x.CategoryCode).ToList();
 
         // Внимание! Тут можно оптимизировать запрос.
-        
+
         var categories = _context.Categories
                         .Where(x => categoryCodes.Contains(x.ExternalCode))
                         .Select(x => new CategoryModel()
@@ -87,7 +88,7 @@ public class NomenclatureRepository(PersonalAccountContext context) : Buffer<Nom
                      };
 
         // Проверка. Вся номенклатура должна быть связана с категориями
-        if (newest.Any(x => x.Category.Id == Guid.Empty))  throw new InvalidOperationException("Некорретно выполнена последовательность. Нет связи с категорией при формировании списка номенклатуры!");
+        if (newest.Any(x => x.Category.Id == Guid.Empty)) throw new InvalidOperationException("Некорретно выполнена последовательность. Нет связи с категорией при формировании списка номенклатуры!");
 
         return entities.Union(newest);
     }
@@ -110,7 +111,8 @@ public class NomenclatureRepository(PersonalAccountContext context) : Buffer<Nom
                 {
                     Name = x.Name,
                     ExternalCode = x.ExternalCode,
-                });
+                    CategoryId = x.Category.Id
+                }).ToList();
 
             // Записываем
             _context.AddRange(newest);
@@ -118,7 +120,17 @@ public class NomenclatureRepository(PersonalAccountContext context) : Buffer<Nom
 
             // Добавляем в буфер
             var key = new BufferKey(options, typeof(NomenclatureModel));
-            Save(key, items);
+            var updated = items.Join(
+                newest,
+                item => item.ExternalCode,
+                newItem => newItem.ExternalCode,
+                (item, newItem) => new { item, newItem }
+            ).Select(x =>
+            {
+                x.item.Id = x.newItem.Id;
+                return x.item;
+            }).ToList();
+            Save(key, updated);
 
             return true;
         }

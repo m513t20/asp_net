@@ -27,6 +27,7 @@ public class CategoryRepository(PersonalAccountContext context) : Buffer<Categor
     {
         // Список категории в пачке
         var batchItems = transactions
+                        .Where(x => x.CategoryCode > 0)
                         .GroupBy(x => new { x.CategoryCode, x.CategoryName })
                         .Select(x => new { x.Key.CategoryCode, x.Key.CategoryName })
                         .ToList();
@@ -87,7 +88,7 @@ public class CategoryRepository(PersonalAccountContext context) : Buffer<Categor
                     Name = x.Name,
                     ExternalCode = x.ExternalCode,
                     CompanyId = x.Owner.Id
-                });
+                }).ToList();
 
             // Записываем
             _context.AddRange( newest );
@@ -95,7 +96,17 @@ public class CategoryRepository(PersonalAccountContext context) : Buffer<Categor
 
             // Добавляем в буфер
             var key = new BufferKey( options, typeof(CategoryModel));
-            Save( key, items );
+            var updated = items.Join(
+                newest,
+                item => item.ExternalCode,
+                newItem => newItem.ExternalCode,
+                (item, newItem) => new { item, newItem }
+            ).Select(x =>
+            {
+                x.item.Id = x.newItem.Id;
+                return x.item;
+            }).ToList();
+            Save(key, updated);
 
             return true;
         }

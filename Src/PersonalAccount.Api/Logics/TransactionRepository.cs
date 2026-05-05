@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using PersonalAccount.Common.Core;
 using PersonalAccount.Data;
@@ -48,7 +46,6 @@ public class TransactionRepository(
 
 
             // Составляющие пачки
-            var categories = _categoryRepository.Get( new BufferKey( options, typeof(CategoryModel)) );
             var emplooes = _emploeeRepository.Get( new BufferKey(options, typeof(EmploeeModel)) );
             var nomenclatures = _nomenclatureRepository.Get( new BufferKey(options, typeof(NomenclatureModel)) );
 
@@ -56,17 +53,17 @@ public class TransactionRepository(
             var rows = transactions.Select( x => new Transaction()
             {
                 TransactionType = (int)x.TypeCode,
-                ChangePeriod = x.Period,
-                NomenclatureId = nomenclatures!.Single( y => y.ExternalCode == x.ProductCode).Id,
-                EmloeeId = emplooes!.Single( y => y.ExternalCode == x.EmploeeCode).Id,
+                ChangePeriod = x.Period.ToUniversalTime(),
+                NomenclatureId = nomenclatures?.FirstOrDefault( y => y.ExternalCode == x.ProductCode)?.Id,
+                EmloeeId = emplooes?.FirstOrDefault( y => y.ExternalCode == x.EmploeeCode)?.Id,
                 Price = (decimal)x.Price,
                 Quantity = (decimal)x.Quantity,
                 Discount = (decimal)x.Discount,
                 BranchId = options.Branch.Id,
+                ExternalCode = x.Code
+            }).ToList();
 
-            });
-
-            // Записываем разложенную
+            // Записываем
             _context.Transactions.AddRange(rows);
             _context.SaveChanges();
 

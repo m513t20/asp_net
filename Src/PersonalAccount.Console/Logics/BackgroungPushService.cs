@@ -71,7 +71,7 @@ public class BackgroungPushService : BackgroundService
                     await _client.PostAsJsonAsync(url, transactions);
                     else
                 {
-                    Log.Debug( string.Format("Для настройки: {0} нет данных.", JsonSerializer.Serialize( settings) ));
+                    Log.Information( string.Format("Для настройки: {0} нет данных.", JsonSerializer.Serialize( settings) ));
                     Thread.Sleep( 500 );
                 }
             }

@@ -30,6 +30,7 @@ public class EmploeeRepository(PersonalAccountContext context) : Buffer<EmploeeM
     {
         // Список сотрудников в пачке
         var batchItems = transactions
+                        .Where(x => x.EmploeeCode > 0)
                         .GroupBy(x => new { x.EmploeeCode, x.EmploeeName })
                         .Select(x => new { x.Key.EmploeeCode, x.Key.EmploeeName })
                         .ToList();
@@ -90,7 +91,7 @@ public class EmploeeRepository(PersonalAccountContext context) : Buffer<EmploeeM
                     Name = x.Name,
                     ExternalCode = x.ExternalCode,
                     CompanyId = x.Owner.Id
-                });
+                }).ToList();
 
             // Записываем
             _context.AddRange(newest);
@@ -98,7 +99,17 @@ public class EmploeeRepository(PersonalAccountContext context) : Buffer<EmploeeM
 
             // Добавляем в буфер
             var key = new BufferKey(options, typeof(EmploeeModel));
-            Save(key, items);
+            var updated = items.Join(
+                newest,
+                item => item.ExternalCode,
+                newItem => newItem.ExternalCode,
+                (item, newItem) => new { item, newItem }
+            ).Select(x =>
+            {
+                x.item.Id = x.newItem.Id;
+                return x.item;
+            }).ToList();
+            Save(key, updated);
 
             return true;
         }

@@ -120,7 +120,7 @@ public class RepositoryTests
         };
 
         // Действие и проверка
-        Assert.DoesNotThrowAsync(async () => await repo.SaveRows(connect, transactions, options));
+        Assert.DoesNotThrowAsync(async () => await repo.SaveRowsAsync(connect, transactions, options));
     }
 
 
