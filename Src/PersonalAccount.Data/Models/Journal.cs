@@ -5,6 +5,8 @@ namespace PersonalAccount.Data.Models;
 
 public partial class Journal
 {
+    public Guid CompanyId { get; set; }
+
     public long? Transnumber { get; set; }
 
     public long? Transtype { get; set; }
@@ -30,8 +32,6 @@ public partial class Journal
     public double? Price { get; set; }
 
     public double? Discountamount { get; set; }
-
-    public Guid CompanyId { get; set; }
 
     public Guid BranchId { get; set; }
 }

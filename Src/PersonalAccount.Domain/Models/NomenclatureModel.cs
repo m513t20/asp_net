@@ -19,4 +19,10 @@ public class NomenclatureModel : DomainModel
     /// </summary>
     [Required]
     public CategoryModel Category {get;set;} = null!;
+
+    /// <summary>
+    /// Кот категории из таблицы MsSql.
+    /// </summary>
+    [Required]
+    public long Code {get;set;}
 }

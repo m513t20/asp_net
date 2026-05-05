@@ -13,6 +13,8 @@ public partial class Emploee
 
     public Guid? CompanyId { get; set; }
 
+    public long? Code { get; set; }
+
     public virtual Company? Company { get; set; }
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
