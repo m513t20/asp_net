@@ -36,7 +36,7 @@ public class JournalBackgroundService : BackgroundService
             var dataSource = scope.ServiceProvider.GetRequiredService<IJournalDataSource>();
             var extractor = scope.ServiceProvider.GetRequiredService<IEntityExtractor>();
             var repository = scope.ServiceProvider.GetRequiredService<IBusinessDataRepository>();
-            var loadingService = scope.ServiceProvider.GetRequiredService<ILoadingService>(); //
+            var loadingService = scope.ServiceProvider.GetRequiredService<ILoadingService>(); 
 
             var settings = await loadingService.GetSettingsAsync(_targetCompanyId, stoppingToken);
 
