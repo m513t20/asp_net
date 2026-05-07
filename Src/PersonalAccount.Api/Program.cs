@@ -42,18 +42,17 @@ var result = upgrader.PerformUpgrade();
 if (!result.Successful)
 {
     Log.Error( result.Error, "Ошибка при миграции данных!");
-    // return;
+    //return;
 }
 
-var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+var xmlFile= $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
 // Подключение сервисов
 builder.Services
         .RegistryPersonalAccountData( configuration )
         .RegistryPersonalAccountApi (configuration )
-        .AddSwaggerGen(x =>
-        {
+        .AddSwaggerGen(x=> {
             x.IncludeXmlComments(xmlPath);
         });
 
