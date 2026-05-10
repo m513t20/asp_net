@@ -7,32 +7,53 @@ namespace PersonalAccount.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
+    /// <summary>
+    /// Настройки
+    /// </summary>
+    /// <returns></returns>
     public IActionResult Index()
     {
-        var branch = new BranchModel()
-        {
-            Name = "Test",
-            Id = Guid.NewGuid()
-        };
-
-        return View(branch);
+        return View(new BranchSettingsModel() { Branches = new List<BranchModel>()});
     }
 
-    public IActionResult Privacy()
+    /// <summary>
+    /// Продажи
+    /// </summary>
+    /// <returns></returns>
+    public IActionResult SallingReport()
     {
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    /// <summary>
+    /// Выручка
+    /// </summary>
+    /// <returns></returns>
+    public IActionResult RevenueReport()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View();
+    }
+
+    /// <summary>
+    /// График работы
+    /// </summary>
+    /// <returns></returns>
+    public IActionResult WorkScheduleReport()
+    {
+        return View();
+    }
+
+    /// <summary>
+    /// Сохранить настройки
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public IActionResult SaveSettings(BranchSettingsModel model)
+    {
+        var validate = model.Branch.Validate();
+        if(!validate)
+            throw new InvalidDataException($"Некорректно указаны параметры!\n{model.Branch.ErrorText}");
+
+        return View(model);
     }
 }

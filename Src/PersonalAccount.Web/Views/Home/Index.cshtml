@@ -1,13 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-@model PersonalAccount.Domain.Models.BranchModel
+﻿@model BranchSettingsModel
 
-<div class="text-center">
+<div class="container">
+    <form method="post" asp-action="SaveSettings">
+
+        <div class="form-group">
+            <label class=" form-label">Филиал:</label>
+            <select class="form-select" asp-for="Branch.Id"
+                    asp-items="@(new SelectList(Model.Branches, "Id", "Name", Model.Branch?.Id))">
+                <option value="">-- Выберите филиал --</option>
+            </select>
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label class="form-label">Уникальный код:</label>
+                <input type="text" class="form-control" asp-for="Branch.Id" value="@(Model.Branch?.Id)" readonly />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Наименование:</label>
+                <input type="text" class="form-control" asp-for="Branch.Name" value="@(Model.Branch?.Name)" />
+            </div>
+
+            <div class="row">
     
-    <label class="form-control">"@Model.Name" </label><br />
-    <label class="form-control">"@Model.Id" </label><br />
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Начальная позиция:</label>
+                        <input type="text" class="form-control" asp-for="Branch.Settings.StartPosition"
+                               value="@(Model.Branch?.Settings?.StartPosition)" />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Размер пачки:</label>
+                        <input type="text" class="form-control" asp-for="Branch.Settings.BatchSize"
+                               value="@(Model.Branch?.Settings?.BatchSize)" />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Изменить</button>
+            <button type="reset" class="btn btn-secondary">Сбросить</button>
+        </div>
+
+    </form>
 
 </div>
-
-

@@ -117,4 +117,5 @@ update branches set load_options = null;
 #### Полезные ссылки
 - https://bootstrap-4.ru/docs/5.3
 - [Pdf document](./BootStrap-5.pdf)
+- [Pdf tutorial](./bootstrap_tutorial.pdf)
 

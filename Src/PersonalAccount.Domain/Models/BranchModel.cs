@@ -20,4 +20,9 @@ public class BranchModel : DomainModel
     /// </summary>
     [Required]
     public CompanyModel Owner { get;set; } = null!;
+
+    /// <summary>
+    /// Текущие настройеи загрузки данных.
+    /// </summary>
+    public LoadingSettingsModel Settings { get; set; } = null!;
 }
