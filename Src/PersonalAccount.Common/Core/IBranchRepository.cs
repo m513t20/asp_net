@@ -16,6 +16,21 @@ public interface IBranchRepository
     public IEnumerable<BranchModel> GetBranches();
 
     /// <summary>
+    /// Получить модель филиала
+    /// </summary>
+    /// <param name="id"> Уникальный код </param>
+    /// <returns></returns>
+    public BranchModel GetBranch(Guid id);
+
+    /// <summary>
+    /// Ассинхронный вариант получение филиала
+    /// </summary>
+    /// <param name="id"> Уникальный код </param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public Task<BranchModel> GetBranchAsync(Guid id, CancellationToken token);
+
+    /// <summary>
     /// Ассннхонный вариант получения списка
     /// </summary>
     /// <param name="token"></param>

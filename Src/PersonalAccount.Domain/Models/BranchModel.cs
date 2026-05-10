@@ -18,7 +18,6 @@ public class BranchModel : DomainModel
     /// <summary>
     /// Организация владелец подразделения.
     /// </summary>
-    [Required]
     public CompanyModel Owner { get;set; } = null!;
 
     /// <summary>

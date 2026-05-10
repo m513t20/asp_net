@@ -14,7 +14,22 @@ public class BranchSettingsModel
     public List<BranchModel> Branches { get; set; } = null!;
 
     /// <summary>
-    /// Выбранный филиал.
+    /// Уникальный код филиал
     /// </summary>
-    public BranchModel Branch { get; set; } = null!;
+    public Guid BranchId { get; set; }
+
+    /// <summary>
+    /// Наименование
+    /// </summary>
+    public string Name { get; set; } = null!;
+
+    /// <summary>
+    /// Уникальный код транзакции для начала загрузки.
+    /// </summary>
+    public long StartPosition {get; set;}
+
+    /// <summary>
+    /// Размер паки
+    /// </summary>
+    public long BatchSize {get;set;} = 1000;
 }

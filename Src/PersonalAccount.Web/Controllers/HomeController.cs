@@ -8,7 +8,7 @@ public class HomeController(IBranchRepository branchRepository) : Controller
 {
     // Репозиторий для работы с филиалами
     private readonly IBranchRepository _branchRepository = branchRepository;
-    
+
     /// <summary>
     /// Настройки
     /// </summary>
@@ -16,10 +16,15 @@ public class HomeController(IBranchRepository branchRepository) : Controller
     public IActionResult Index()
     {
         var branches = _branchRepository.GetBranches().ToList();
-        var viewModel = new BranchSettingsModel() 
-        { 
+        var branch = branches.First();
+
+        var viewModel = new BranchSettingsModel()
+        {
             Branches = branches,
-            Branch = branches.First()
+            BranchId = branch.Id,
+            Name = branch.Name,
+            StartPosition = branch.Settings.StartPosition,
+            BatchSize = branch.Settings.BatchSize
         };
         return View(viewModel);
     }
@@ -58,11 +63,23 @@ public class HomeController(IBranchRepository branchRepository) : Controller
     [HttpPost]
     public IActionResult SaveSettings(BranchSettingsModel model)
     {
-        var validate = model.Branch.Validate();
-        if(!validate)
-            throw new InvalidDataException($"Некорректно указаны параметры!\n{model.Branch.ErrorText}");
+        var branch = _branchRepository.GetBranch(model.BranchId);
+        branch.Name = model.Name;
+        branch.Settings.StartPosition = model.StartPosition;
+        branch.Settings.BatchSize = model.BatchSize;
 
-        _branchRepository.Update(model.Branch);    
-        return View(model);
+        _branchRepository.Update(branch);
+
+        // Повторно перегружаю Index представление
+        var branches = _branchRepository.GetBranches().ToList();
+        var viewModel = new BranchSettingsModel()
+        {
+            Branches = branches,
+            BranchId = branch.Id,
+            Name = branch.Name,
+            StartPosition = branch.Settings.StartPosition,
+            BatchSize = branch.Settings.BatchSize
+        };
+        return View("Index", viewModel);
     }
 }
