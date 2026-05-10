@@ -13,6 +13,8 @@ public class BranchSettingsModel
     /// </summary>
     public List<BranchModel> Branches { get; set; } = null!;
 
+    #region  Данные формы
+
     /// <summary>
     /// Уникальный код филиал
     /// </summary>
@@ -32,4 +34,6 @@ public class BranchSettingsModel
     /// Размер паки
     /// </summary>
     public long BatchSize {get;set;} = 1000;
+
+    #endregion
 }
