@@ -7,7 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../PersonalAccount.Common/PersonalAccount.Common.csproj" />
+    <ProjectReference Include="../PersonalAccount.Data/PersonalAccount.Data.csproj" />
     <ProjectReference Include="../PersonalAccount.Domain/PersonalAccount.Domain.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.3.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.3" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions/" />
+    <Folder Include="Logics/" />
+  </ItemGroup>
+
+<ItemGroup>
+    <Content Include="../PersonalAccount.Console/appsettings.json">
+      <Link>appsettings.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 
 </Project>

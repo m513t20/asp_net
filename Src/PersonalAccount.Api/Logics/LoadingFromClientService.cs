@@ -11,12 +11,12 @@ namespace PersonalAccount.Api.Logics;
 /// </summary>
 public class LoadingFromClientService(
         PersonalAccountContext context,
-        ICompanySettingsRepository settingsRepository,
+        ISettingsRepository settingsRepository,
         IServerRepository<JournalRowDto> writerRepository,
         ITransactionRepository transactionRepository) : ILoadingFromClientService
 {
     // Репозиторий для работы с настройками загрузки данных
-    private readonly ICompanySettingsRepository _settingReposity = settingsRepository;
+    private readonly ISettingsRepository _settingReposity = settingsRepository;
 
     // Репозиторий для скоростной записи данных в журнал
     private readonly IServerRepository<JournalRowDto> _writerRepository = writerRepository;

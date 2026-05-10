@@ -5,18 +5,18 @@ using PersonalAccount.Domain.Models;
 namespace PersonalAccount.Data.Logics;
 
 /// <summary>
-/// Реализация интерфейса <see cref="ICompanySettingsRepository"/>
+/// Реализация интерфейса <see cref="ISettingsRepository"/>
 /// </summary>
-public class CompanySettingsRepository : ICompanySettingsRepository
+public class SettingsRepository : ISettingsRepository
 {
     // Контекст для работы с базой данных
     private readonly PersonalAccountContext _context;
 
     /// <summary>
-    /// Создать обхект типа <see cref="CompanySettingsRepository"/>
+    /// Создать обхект типа <see cref="SettingsRepository"/>
     /// </summary>
     /// <param name="context"> Контекст для работы с базой данных </param>
-    public CompanySettingsRepository(PersonalAccountContext context) => _context = context;
+    public SettingsRepository(PersonalAccountContext context) => _context = context;
 
     /// <summary>
     /// Загрузить настройки

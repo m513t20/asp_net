@@ -1,19 +1,27 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using PersonalAccount.Domain.Models;
+using PersonalAccount.Common.Core;
 using PersonalAccount.Web.Models;
 
 namespace PersonalAccount.Web.Controllers;
 
-public class HomeController : Controller
+public class HomeController(IBranchRepository branchRepository) : Controller
 {
+    // Репозиторий для работы с филиалами
+    private readonly IBranchRepository _branchRepository = branchRepository;
+    
     /// <summary>
     /// Настройки
     /// </summary>
     /// <returns></returns>
     public IActionResult Index()
     {
-        return View(new BranchSettingsModel() { Branches = new List<BranchModel>()});
+        var branches = _branchRepository.GetBranches().ToList();
+        var viewModel = new BranchSettingsModel() 
+        { 
+            Branches = branches,
+            Branch = branches.First()
+        };
+        return View(viewModel);
     }
 
     /// <summary>
@@ -54,6 +62,7 @@ public class HomeController : Controller
         if(!validate)
             throw new InvalidDataException($"Некорректно указаны параметры!\n{model.Branch.ErrorText}");
 
+        _branchRepository.Update(model.Branch);    
         return View(model);
     }
 }

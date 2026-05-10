@@ -5,7 +5,7 @@ namespace PersonalAccount.Common.Core;
 /// <summary>
 /// Репозиторий для работы с настройками загрузки данных
 /// </summary>
-public interface ICompanySettingsRepository
+public interface ISettingsRepository
 {
     /// <summary>
     /// Сохранить настройки

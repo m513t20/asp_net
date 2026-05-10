@@ -38,7 +38,7 @@ public class CompanySettingsTests
 
 
     /// <summary>
-    /// Прверить работу метода Load класса <see cref="CompanySettingsRepository"/>
+    /// Прверить работу метода Load класса <see cref="SettingsRepository"/>
     /// </summary>
     /// <returns></returns>
     [Test]
@@ -47,7 +47,7 @@ public class CompanySettingsTests
     public void  Load_CompanySettingsRepository_NotThrow(string companyId)
     {
         // Подготова
-        var repo = _provider.GetRequiredService<ICompanySettingsRepository>();
+        var repo = _provider.GetRequiredService<ISettingsRepository>();
         var branch = new BranchModel()
         {
             Id = new Guid( companyId )
@@ -62,7 +62,7 @@ public class CompanySettingsTests
     }
 
     /// <summary>
-    /// Проверить работу метода Save класса <see cref="CompanySettingsRepository"/>
+    /// Проверить работу метода Save класса <see cref="SettingsRepository"/>
     /// </summary>
     /// <returns></returns>
     [Test]
@@ -71,7 +71,7 @@ public class CompanySettingsTests
     public void Save_CompanySettingsRepository_NotThrow(string branchId)
     {
         // Подготовка
-        var repo = _provider.GetRequiredService<ICompanySettingsRepository>();
+        var repo = _provider.GetRequiredService<ISettingsRepository>();
         var branch = new BranchModel()
         {
             Id = new Guid( branchId )

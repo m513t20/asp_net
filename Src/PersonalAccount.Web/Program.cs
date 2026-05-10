@@ -1,23 +1,36 @@
+using PersonalAccount.Data.Extensions;
+using PersonalAccount.Web.Extensions;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Подключаем конфигурацию и логирование
+var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.File(
+                    path: "PersonalAccountApi_.log",
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 30
+                )
+                .CreateLogger();       
+
+// Регистрируем сервиса
+builder.Services
+    .RegistryPersonalAccountData(configuration)
+    .RegistryPersonalAccountWeb(configuration);
+
+// Регистрируем контроллеры    
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
+app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
