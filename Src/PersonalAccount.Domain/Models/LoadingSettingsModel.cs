@@ -31,4 +31,6 @@ public class LoadingSettingsModel : DomainModel
     /// </summary>
     [Required]
     public long BatchSize {get;set;} = 1000;
+
+    public Guid SelectedBranchId { get; set; }
 }

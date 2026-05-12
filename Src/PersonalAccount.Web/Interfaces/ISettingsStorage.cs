@@ -16,7 +16,7 @@ public interface ISettingsStorage
     /// <summary>
     /// Выбранные настройки.
     /// </summary>
-    LoadingSettingsModel Settings { get; }
+    LoadingSettingsModel Settings { get; set; }
 
     /// <summary>
     /// Выбранный филиал.

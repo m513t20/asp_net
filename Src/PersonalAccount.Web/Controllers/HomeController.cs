@@ -1,6 +1,9 @@
 using System.Diagnostics;
+using AspNetCoreGeneratedDocument;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PersonalAccount.Domain.Models;
+using PersonalAccount.Web.Interfaces;
 using PersonalAccount.Web.Models;
 
 namespace PersonalAccount.Web.Controllers;
@@ -9,37 +12,52 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    private readonly ISettingsStorage _settings;
+
+    public HomeController(ILogger<HomeController> logger, ISettingsStorage settings)
     {
         _logger = logger;
+        _settings = settings;
     }
 
     public IActionResult Index()
     {
-        var branch = new BranchModel()
-        {
-            Name = "Test",
-            Id = Guid.NewGuid()
-        };
-
-        return View(branch);
+        return View(_settings.Settings);
     }
 
     public IActionResult Privacy()
     {
         return View();
     }
-
-    public IActionResult Settings(LoadingSettingsModel model)
+    
+    public IActionResult Settings()
     {
-        if (!ModelState.IsValid /* && model.Validate()*/)
+
+
+        if (_settings.Settings.Branch != null)
         {
-            //Save model
-            return View(model);
+            _settings.Settings.SelectedBranchId = _settings.Settings.Branch.Id;
         }
-        return RedirectToAction("Index");
+
+        ViewBag.BranchesList = new SelectList(_settings.Branches, "Id", "Name");
+
+        return View(_settings.Settings);
     }
 
+    public IActionResult Create(LoadingSettingsModel model)
+    {
+        // Валидация
+        // if (!ModelState.IsValid /* && model.Validate()*/)
+        // {
+        //     return RedirectToAction("Settings");
+        // }
+    
+        // Сохранить модель
+        model.Branch = _settings.Branches.First(x=> x.Id == model.SelectedBranchId); 
+        _settings.Settings = model;
+        return RedirectToAction("Index");
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

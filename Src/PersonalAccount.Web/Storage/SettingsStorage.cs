@@ -9,9 +9,55 @@ namespace PersonalAccount.Web.Storage;
 /// </summary>
 public class SettingsStorage : ISettingsStorage
 {
-    public IEnumerable<BranchModel> Branches => throw new NotImplementedException();
+    // TODO ... свести с актуальным бэком
+    // пока просто локально храню данные
+    // о ветках, настройках
+    private IEnumerable<BranchModel> _branches;
 
-    public LoadingSettingsModel Settings => throw new NotImplementedException();
+    private LoadingSettingsModel _settings;
 
-    public BranchModel Branch => throw new NotImplementedException();
+    public SettingsStorage()
+    {
+        var company = new CompanyModel()
+        {
+            Name = "Компания 1"
+        };
+
+        _branches = new List<BranchModel>() {
+            new() {
+                Id = Guid.NewGuid(),
+                Owner = company,
+                Name = "Ветка 1",
+            },
+            new() {
+                Id = Guid.NewGuid(),
+                Owner = company,
+                Name = "Ветка 2",
+            },
+            new() {
+                Id = Guid.NewGuid(),
+                Owner = company,
+                Name = "Ветка 1",
+            }
+        };
+        
+        _settings = new LoadingSettingsModel()
+        {
+            Id = Guid.NewGuid(),
+            Branch = _branches.First(),
+            StartPosition = 0,
+            BatchSize = 100,
+        };
+    }
+
+    public IEnumerable<BranchModel> Branches { 
+        get {return _branches;} 
+    }
+
+    public LoadingSettingsModel Settings { 
+        get {return _settings;} 
+        set {_settings = value;} 
+    }
+
+    public BranchModel Branch => Settings.Branch;
 }

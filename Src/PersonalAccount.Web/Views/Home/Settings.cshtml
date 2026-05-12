@@ -27,6 +27,16 @@
                 <span asp-validation-for="BatchSize" class="text-danger"></span>
             </div>
         </div>
+
+        <div class="form-group">
+            <label asp-for="SelectedBranchId" class="form-label">Филиал (Ветка)</label>
+            <select asp-for="SelectedBranchId" 
+                    asp-items="ViewBag.BranchesList" 
+                    class="form-select">
+                <option value="">-- Выберите филиал --</option>
+            </select>
+            <span asp-validation-for="SelectedBranchId" class="text-danger"></span>
+        </div>
     </div>
 
     <button type="submit" class="btn btn-success">Сохранить</button>

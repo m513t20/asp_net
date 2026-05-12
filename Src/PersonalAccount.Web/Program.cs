@@ -1,5 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<PersonalAccount.Web.Interfaces.ISettingsStorage,
+    PersonalAccount.Web.Storage.SettingsStorage>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

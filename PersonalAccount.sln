@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Data", "Src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Api", "Src\PersonalAccount.Api\PersonalAccount.Api.csproj", "{80FB1570-0D8C-4B96-979C-CFAFD69C1074}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalAccount.Web", "Src\PersonalAccount.Web\PersonalAccount.Web.csproj", "{98D7D4A7-CBB1-439D-AF7B-D97FC5C98423}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{80FB1570-0D8C-4B96-979C-CFAFD69C1074}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80FB1570-0D8C-4B96-979C-CFAFD69C1074}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80FB1570-0D8C-4B96-979C-CFAFD69C1074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98D7D4A7-CBB1-439D-AF7B-D97FC5C98423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98D7D4A7-CBB1-439D-AF7B-D97FC5C98423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98D7D4A7-CBB1-439D-AF7B-D97FC5C98423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98D7D4A7-CBB1-439D-AF7B-D97FC5C98423}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +97,6 @@ Global
 		{759783A3-D1DC-8DF6-B739-69DC21676ADC} = {5B4C5E0E-B8F0-F1E8-C7D4-D30CFEBBB4A0}
 		{18BB4D91-9BFF-423D-A526-7EACE8FE2173} = {3DF1C3C8-F376-4341-A407-C2B5826E8962}
 		{80FB1570-0D8C-4B96-979C-CFAFD69C1074} = {3DF1C3C8-F376-4341-A407-C2B5826E8962}
+		{98D7D4A7-CBB1-439D-AF7B-D97FC5C98423} = {3DF1C3C8-F376-4341-A407-C2B5826E8962}
 	EndGlobalSection
 EndGlobal
