@@ -28,7 +28,7 @@ public static class RegistryExtension
         var options = configuration.GetSection(nameof(ApiOptions)).Get<ApiOptions>()
                         ?? throw new InvalidOperationException($"Невозможно загрузить настройки из секции {nameof(ApiOptions)}!");
 
-        services.AddSingleton< ICompanySettingsRepository, CompanySettingsRepository>();
+        services.AddScoped< ICompanySettingsRepository, CompanySettingsRepository>();
         services.AddDbContext<PersonalAccountContext>(
             x => x.UseNpgsql( options.ConnectionString )
         );

@@ -1,0 +1,22 @@
+
+@inject PersonalAccount.Web.Interfaces.ISettingsStorage SettingsService
+
+@{
+    ViewData["Title"] = "Выбор филиала";
+}
+
+@{
+    var branches = new SelectList(SettingsService.Branches, "Id", "Name");
+}
+
+<form asp-action="Settings" method="get">
+    <div class="mb-3">
+        <label for="branchId" class="form-label fw-bold">Выберите филиал для редактирования:</label>
+        <select id="branchId" name="branchId" asp-items="branches" class="form-select" required>
+            <option value="" selected disabled>-- Выберите из списка --</option>
+        </select>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Перейти к настройкам</button>
+    </div>
+</form>
