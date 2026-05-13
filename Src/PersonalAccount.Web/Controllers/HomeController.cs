@@ -42,7 +42,7 @@ public class HomeController : Controller
     }
 
     /// <summary>
-    /// Выбор актуальной ветки.
+    /// Выбор актуального филиала.
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -86,10 +86,10 @@ public class HomeController : Controller
     public IActionResult Create(LoadingSettingsModel model)
     {
         // Валидация
-        // if (!ModelState.IsValid /* && model.Validate()*/)
-        // {
-        //     return RedirectToAction("Settings");
-        // }
+        if (!ModelState.IsValid && model.Validate())
+        {
+            return RedirectToAction("Settings");
+        }
     
         // Сохранить модель
         model.Branch = new () { Id = model.SelectedBranchId };

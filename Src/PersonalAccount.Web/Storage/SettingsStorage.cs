@@ -23,7 +23,9 @@ public class SettingsStorage(
     /// </summary>
     private readonly PersonalAccountContext _context = context;
 
-
+    /// <summary>
+    /// Получить Филиалы.
+    /// </summary>
     public IEnumerable<BranchModel> Branches => _context.Branches.Select(x =>
                 new BranchModel()
                 {
@@ -32,12 +34,23 @@ public class SettingsStorage(
                 }
             );
 
+    /// <summary>
+    /// Получить настройки по филиалу.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public LoadingSettingsModel GetSettingsByBranchId(Guid id)
     {
         var branch = new BranchModel() { Id = id };
         return _settingReposity.Load(branch) ?? throw new ArgumentNullException($"Настройки по Id={id} не найдены");
     }
 
+    /// <summary>
+    /// Сохранить настройки.
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     public bool SaveLoadingSettings(LoadingSettingsModel model)
     {
         _settingReposity.Save(model);
