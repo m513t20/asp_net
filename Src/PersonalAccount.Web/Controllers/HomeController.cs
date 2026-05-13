@@ -8,6 +8,9 @@ using PersonalAccount.Web.Models;
 
 namespace PersonalAccount.Web.Controllers;
 
+/// <summary>
+/// Основной контроллер для веб интерфейса.
+/// </summary>
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -20,30 +23,66 @@ public class HomeController : Controller
         _settings = settings;
     }
 
+    /// <summary>
+    /// Основная страница, отображает выбранные настройки
+    /// </summary>
+    /// <returns></returns>
     public IActionResult Index()
     {
-        return View(_settings.Settings);
+        return View();
     }
 
+    /// <summary>
+    /// Страница политики конфиденциальности.
+    /// </summary>
+    /// <returns></returns>
     public IActionResult Privacy()
     {
         return View();
     }
-    
-    public IActionResult Settings()
+
+    /// <summary>
+    /// Выбор актуальной ветки.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult Branch()
     {
-
-
-        if (_settings.Settings.Branch != null)
-        {
-            _settings.Settings.SelectedBranchId = _settings.Settings.Branch.Id;
-        }
-
-        ViewBag.BranchesList = new SelectList(_settings.Branches, "Id", "Name");
-
-        return View(_settings.Settings);
+        return View();
     }
 
+    /// <summary>
+    /// Таблица реадктирования настроек.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult Settings(string branchId)
+    {
+        if (string.IsNullOrEmpty(branchId))
+        {
+            return RedirectToAction("Branch"); 
+        }
+
+        var processedId = Guid.Parse(branchId);
+        var branchSettings = _settings.GetSettingsByBranchId(processedId);
+
+        if (branchSettings == null)
+        {
+            branchSettings = new LoadingSettingsModel 
+            { 
+                SelectedBranchId = processedId,
+                BatchSize = 100
+            };
+        }
+        branchSettings.SelectedBranchId = processedId;        
+        return View(branchSettings);
+    }
+
+    /// <summary>
+    /// Сохранение настроек
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     public IActionResult Create(LoadingSettingsModel model)
     {
         // Валидация
@@ -53,8 +92,8 @@ public class HomeController : Controller
         // }
     
         // Сохранить модель
-        model.Branch = _settings.Branches.First(x=> x.Id == model.SelectedBranchId); 
-        _settings.Settings = model;
+        model.Branch = new () { Id = model.SelectedBranchId };
+        _settings.SaveLoadingSettings(model); 
         return RedirectToAction("Index");
     }
     

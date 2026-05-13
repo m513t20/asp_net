@@ -14,12 +14,15 @@ public interface ISettingsStorage
     IEnumerable<BranchModel> Branches { get; }
 
     /// <summary>
-    /// Выбранные настройки.
+    /// Получить настройки по ID ветки.
     /// </summary>
-    LoadingSettingsModel Settings { get; set; }
+    /// <returns></returns>
+    LoadingSettingsModel GetSettingsByBranchId(Guid id);
 
     /// <summary>
-    /// Выбранный филиал.
+    /// Сохранить настройки загрузки.
     /// </summary>
-    BranchModel Branch { get; }
+    /// <param name=""></param>
+    /// <returns></returns>
+    bool SaveLoadingSettings(LoadingSettingsModel model);
 }

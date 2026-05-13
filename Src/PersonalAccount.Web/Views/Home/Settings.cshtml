@@ -5,11 +5,8 @@
 @model PersonalAccount.Domain.Models.LoadingSettingsModel
 
 <form asp-action="Create" method="post">
+    <input type="hidden" asp-for="SelectedBranchId" />
     <div class="form-group">
-        <label asp-for="Id"></label>
-        <input asp-for="Id" class="form-control" />
-        <span asp-validation-for="Id" class="text-danger"></span>
-        
         <label asp-for="Description"></label>
         <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
@@ -28,15 +25,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label asp-for="SelectedBranchId" class="form-label">Филиал (Ветка)</label>
-            <select asp-for="SelectedBranchId" 
-                    asp-items="ViewBag.BranchesList" 
-                    class="form-select">
-                <option value="">-- Выберите филиал --</option>
-            </select>
-            <span asp-validation-for="SelectedBranchId" class="text-danger"></span>
-        </div>
     </div>
 
     <button type="submit" class="btn btn-success">Сохранить</button>

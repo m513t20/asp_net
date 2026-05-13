@@ -1,4 +1,5 @@
-using System;
+using PersonalAccount.Common.Core;
+using PersonalAccount.Data;
 using PersonalAccount.Domain.Models;
 using PersonalAccount.Web.Interfaces;
 
@@ -7,57 +8,39 @@ namespace PersonalAccount.Web.Storage;
 /// <summary>
 /// Класс для хранения данных о настройках и филиалах.
 /// </summary>
-public class SettingsStorage : ISettingsStorage
+public class SettingsStorage(
+        ICompanySettingsRepository settingsRepository,
+        PersonalAccountContext context
+    ) : ISettingsStorage
 {
-    // TODO ... свести с актуальным бэком
-    // пока просто локально храню данные
-    // о ветках, настройках
-    private IEnumerable<BranchModel> _branches;
+    /// <summary>
+    /// Репозиторий для работы с настройками.
+    /// </summary>
+    private readonly ICompanySettingsRepository _settingReposity = settingsRepository;
 
-    private LoadingSettingsModel _settings;
+    /// <summary>
+    /// Репозиторий для работы с настройками.
+    /// </summary>
+    private readonly PersonalAccountContext _context = context;
 
-    public SettingsStorage()
+
+    public IEnumerable<BranchModel> Branches => _context.Branches.Select(x =>
+                new BranchModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }
+            );
+
+    public LoadingSettingsModel GetSettingsByBranchId(Guid id)
     {
-        var company = new CompanyModel()
-        {
-            Name = "Компания 1"
-        };
-
-        _branches = new List<BranchModel>() {
-            new() {
-                Id = Guid.NewGuid(),
-                Owner = company,
-                Name = "Ветка 1",
-            },
-            new() {
-                Id = Guid.NewGuid(),
-                Owner = company,
-                Name = "Ветка 2",
-            },
-            new() {
-                Id = Guid.NewGuid(),
-                Owner = company,
-                Name = "Ветка 1",
-            }
-        };
-        
-        _settings = new LoadingSettingsModel()
-        {
-            Id = Guid.NewGuid(),
-            Branch = _branches.First(),
-            StartPosition = 0,
-            BatchSize = 100,
-        };
+        var branch = new BranchModel() { Id = id };
+        return _settingReposity.Load(branch) ?? throw new ArgumentNullException($"Настройки по Id={id} не найдены");
     }
 
-    public IEnumerable<BranchModel> Branches { 
-        get {return _branches;} 
+    public bool SaveLoadingSettings(LoadingSettingsModel model)
+    {
+        _settingReposity.Save(model);
+        return true;
     }
-
-    public LoadingSettingsModel Settings { 
-        get {return _settings;} 
-        set {_settings = value;} 
-    }
-
-    public BranchModel Branch => Settings.Branch;
 }

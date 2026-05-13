@@ -1,6 +1,17 @@
+using PersonalAccount.Common.Models;
+using PersonalAccount.Data.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<PersonalAccount.Web.Interfaces.ISettingsStorage,
+var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("connectionsettings.json")
+                    .Build();
+var options = configuration.GetSection(nameof(ApiOptions)).Get<ApiOptions>()
+                        ?? throw new InvalidOperationException($"Невозможно загрузить настройки из секции {nameof(ApiOptions)}!");
+
+builder.Services.RegistryPersonalAccountData( configuration );
+
+builder.Services.AddScoped<PersonalAccount.Web.Interfaces.ISettingsStorage,
     PersonalAccount.Web.Storage.SettingsStorage>();
 
 // Add services to the container.
