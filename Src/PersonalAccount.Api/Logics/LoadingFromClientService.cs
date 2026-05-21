@@ -82,7 +82,7 @@ public class LoadingFromClientService(
     /// <InhericDoc/>
     public LoadingSettingsModel GetSettings(Guid branchId)
     {
-        var entity = _context.Branches.FirstOrDefault(x => x.Id == branchId) ?? throw new InvalidOperationException($"Невозможно получить карточку филиала по коду {branchId}!");
+        var entity = _context.Branches.FirstOrDefault(x => x.Id == branchId) ?? throw new KeyNotFoundException($"Невозможно получить карточку филиала по коду {branchId}!");
 
         // Конвертируем в модель
         var branch = new BranchModel()
