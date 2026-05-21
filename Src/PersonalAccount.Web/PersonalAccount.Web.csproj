@@ -24,8 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Enums/" />
     <Folder Include="Extensions/" />
+    <Folder Include="Interfaces/" />
     <Folder Include="Logics/" />
+    <Folder Include="Views/Report/" />
   </ItemGroup>
 
 <ItemGroup>
