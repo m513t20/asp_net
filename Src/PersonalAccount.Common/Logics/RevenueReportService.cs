@@ -112,7 +112,7 @@ public class RevenueReportService : IRevenueReportService
             BankAmount = calcBankTask.Result.ContainsKey( x ) ? calcBankTask.Result[ x ] : 0,
             CashAmount = calcCashTask.Result.ContainsKey( x ) ? calcCashTask.Result[ x ] : 0,
             DiscountAmount = calcDiscountTask.Result.ContainsKey( x ) ? calcDiscountTask.Result[ x ] : 0,
-            Owner = transactions.FirstOrDefault()?.Owner.Id ?? Guid.Empty
+            Owner = transactions.FirstOrDefault()?.Owner?.Id ?? Guid.Empty
         }).OrderBy(x => x.Period);
 
         return result ;            

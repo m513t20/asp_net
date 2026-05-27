@@ -4,9 +4,31 @@ using PersonalAccount.Web.Interfaces;
 
 namespace PersonalAccount.Web.Models;
 
+/// <summary>
+/// Модель отчета графика работы.
+/// </summary>
 public class WorkScheduleViewModel : WorkScheduleDto, IReportSettings
 {
-    public Guid BranchId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    DateTime IReportSettings.Start { get => throw new NotImplementedException(); set => Start = value; }
-    DateTime IReportSettings.Stop { get => throw new NotImplementedException(); set => Stop = value; }
+    /// <summary>
+    /// Id ветки.
+    /// </summary>
+    public Guid BranchId { get; set; }
+
+    /// <summary>
+    /// Начало периода.
+    /// </summary>
+    DateTime IReportSettings.Start
+    {
+        get => Start.DateTime;
+        set => Start = new DateTimeOffset(value);
+    }
+
+    /// <summary>
+    /// Конец периода.
+    /// </summary>
+    DateTime IReportSettings.Stop
+    {
+        get => Stop.DateTime;
+        set => Stop = new DateTimeOffset(value);
+    }
 }

@@ -1,6 +1,5 @@
-using System;
-using System.Transactions;
 using PersonalAccount.Domain.Core;
+using PersonalAccount.Domain.Models;
 using PersonalAccount.Web.Enums;
 
 namespace PersonalAccount.Web.Interfaces;
@@ -11,24 +10,19 @@ namespace PersonalAccount.Web.Interfaces;
 public interface IReportService
 {
     /// <summary>
-    /// Загруженные транзакции.
+    /// Сохраненные транзакции
     /// </summary>
-    public IEnumerable<Transaction> Transactions { get; set; }
+    public IEnumerable<TransactionModel> Transactions { get; set; }
 
     /// <summary>
-    /// Тип отчета
-    /// </summary>
-    public ReportTypeEnum ReportType { get; }
-
-    /// <summary>
-    /// Получить отчет.
+    /// Получить транзакции.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<IDto> Get();
+    public IEnumerable<TransactionModel> Get(Guid branchId, DateTime start, DateTime end);
 
     /// <summary>
     /// Создать отчет.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<IDto> Create();
+    public IEnumerable<IDto> Create(IEnumerable<TransactionModel> transactions, ReportTypeEnum reportType);
 }

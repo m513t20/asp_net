@@ -18,16 +18,16 @@ public class SalesReportService : ISalesReportService
     public IEnumerable<SellingDto> Create(IEnumerable<TransactionModel> transactions)
     {
         if(!transactions.Any()) return  Enumerable.Empty<SellingDto>() ;
-        var companyId = transactions.FirstOrDefault()?.Owner.Id ?? throw new InvalidOperationException("Невозможно получить код корганизации!");
+        var companyId = transactions.FirstOrDefault()?.Branch?.Id ?? throw new InvalidOperationException("Невозможно получить код корганизации!");
         
         var items = transactions.Where(x => x.Type == Domain.Core.TransactionType.Sale);
         var result = items.Select( x => new SellingDto()
         {
             Period = x.Period.Date,
-            CategoryId = x.Nomenclature.Category.Id,
-            CategoryName = x.Nomenclature.Category.Name,
-            NomenclatureId = x.Nomenclature.Id,
-            NomenclatureName = x.Nomenclature.Name,
+            CategoryId = x.Nomenclature?.Category?.Id ?? Guid.Empty,
+            CategoryName = x.Nomenclature?.Category?.Name ?? "Без категории",
+            NomenclatureId = x.Nomenclature?.Id ?? Guid.Empty,
+            NomenclatureName = x.Nomenclature?.Name ?? "Удаленный товар",
             Quantuty = x.Quantuty,
             Amount = (x.Quantuty * x.Price) - x.Discount,
             DiscountAmount = x.Discount,
