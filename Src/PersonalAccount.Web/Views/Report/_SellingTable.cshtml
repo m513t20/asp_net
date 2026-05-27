@@ -1,0 +1,36 @@
+@model IEnumerable<PersonalAccount.Domain.Models.Dto.SellingDto>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Отчет "Продажи"</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Период</th>
+                        <th>Группа</th>
+                        <th>Номенклатура</th>
+                        <th>Кол-во</th>
+                        <th>Скидка</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Period.ToShortDateString()</td>
+                            <td>@item.CategoryName</td>
+                            <td>@item.NomenclatureName</td>
+                            <td>@item.Quantuty</td>
+                            <td>@item.DiscountAmount.ToString("C")</td>
+                            <td class="fw-bold">@item.Amount.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

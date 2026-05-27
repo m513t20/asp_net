@@ -21,7 +21,10 @@ public class WorkScheduleReportService : IWorkScheduleReportService
     public IEnumerable<WorkScheduleDto> Create(IEnumerable<TransactionModel> transactions)
     {
         if(!transactions.Any()) return  Enumerable.Empty<WorkScheduleDto>() ;
-        var companyId = transactions.FirstOrDefault()?.Owner.Id ?? throw new InvalidOperationException("Невозможно получить код корганизации!");
+        var companyId = transactions.FirstOrDefault()?.Branch?.Id ?? throw new InvalidOperationException("Невозможно получить код корганизации!");
+        transactions = transactions.Where(x => (x.Type == Domain.Core.TransactionType.StartShift || 
+                         x.Type == Domain.Core.TransactionType.StopShift) 
+                         && x.Emploee != null);
 
         // Получаем все старты в разрезе каждого дня
         var starting =  Task.Run( () => 

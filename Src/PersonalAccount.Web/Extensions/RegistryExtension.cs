@@ -1,5 +1,6 @@
 using System;
 using PersonalAccount.Common.Core;
+using PersonalAccount.Web.Interfaces;
 using PersonalAccount.Web.Logics;
 
 namespace PersonalAccount.Web.Extensions;
@@ -18,6 +19,7 @@ public static class RegistryExtension
     )
     {
         services.AddScoped<IBranchRepository, BranchRepository>();
+        services.AddScoped<IReportService, ReportService>();
         return services;
     }
 }
